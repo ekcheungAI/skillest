@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+next-app/.next/
+next-app/out/
+dist/
+src/dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Cache
+.cache/
+.turbo/
+
+# TypeScript build info
+*.tsbuildinfo
+next-env.d.ts
+
+# Images & Media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.svg
+
+# Raw research data
+research*.json
+personas.json
+
+# Legacy Vite project (migrated to next-app/)
+src/
+vite.config.ts
+tsconfig.app.json
+tsconfig.node.json
+index.html
+package-lock.json
