@@ -5973,12 +5973,81 @@ BEHAVIORAL RULES
     useCasePrompts: [
       { title: "Be The Best", icon: "⚽", description: "Channel Ronaldo's unapologetic ambition", prompt: "I have a professional goal but I feel I'm not good enough. Apply Ronaldo's ambition framework: why does believing you're the best help you achieve it? Give me the mental reframe.", tags: ["Ambition", "Goals", "Confidence"] },
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: [],
-    competitiveWorldview: { marketFrame: "Football is a results business. Goals, trophies, records. Everything else is commentary.", threatRanking: [], strategicFears: [], strategicConfidence: [], contrarianBeliefs: [] },
+    competitors: [
+      {
+        name: "Lionel Messi",
+        relationship: "Primary Rival",
+        marketPosition: "The other great footballer of the generation — Messi's artistry, vision, and 8 Ballon d'Or awards created the defining rivalry of football's modern era",
+        competitiveDynamic: "The Messi-Ronaldo rivalry was the most commercially significant in sport from 2008-2023. They split the Ballon d'Or 12 times between them. It was a rivalry of philosophies — Ronaldo's athleticism and discipline vs. Messi's artistry and joy.",
+        tacticalResponse: "Ronaldo treated Messi as the benchmark — every Messi record was a target. He visibly changed his playing style multiple times across four clubs to maintain parity.",
+        whatTheyDoBetter: "Messi's dribbling, playmaking, and vision are transcendent.",
+        whatTheyDoWorse: "Ronaldo's physical athleticism, heading ability, and longevity are superior.",
+        privateQuote: "I am proud to be me. I work every day to be the best. The records speak for themselves.",
+        status: "Historical",
+      },
+    ],
+    mentalModels: [
+      {
+        name: "The Record Machine",
+        origin: "Ronaldo's obsession with records — he tracks them obsessively, sets numerical targets for each season, and celebrates when achieved.",
+        trigger: "When facing criticism or comparing himself to others",
+        internalMonologue: "What is the record? What do I need? They say it can't be done? The work is the answer. Every day. The records don't lie.",
+        output: "His documented behavior of setting specific numerical targets for each season.",
+        confidence: "Firmly Held",
+      },
+      {
+        name: "Physical Transformation as Strategy",
+        origin: "Ronaldo transformed his body multiple times across his career — added muscle at Manchester United, refined physique for Real Madrid, maintained elite athleticism into his late 30s.",
+        trigger: "When facing a new challenge or competitive threat",
+        internalMonologue: "I adapt. The body is a tool. I keep it sharp. Others rely on talent; I rely on preparation.",
+        output: "His ability to reinvent himself across four clubs while maintaining elite scoring rates into his late 30s.",
+        confidence: "Firmly Held",
+      },
+    ],
+    skillChain: [
+      {
+        name: "Heading and Aerial Duels",
+        originStory: "Ronaldo developed his heading ability with a dedicated program — trained leap timing, neck strength, and spatial awareness to dominate penalty boxes.",
+        howTheyActuallyUseIt: "Studies goalkeeper positioning before every set piece. Positions at the last possible moment. His leap peaks at the moment of contact.",
+        whenTheyFail: "Against elite marking or imprecise deliveries, even exceptional aerial ability cannot create chances from nothing.",
+        relatedBlindSpot: "Over-reliance on aerial play in later career reduced his open-play contribution.",
+      },
+      {
+        name: "Longevity Through Discipline",
+        originStory: "Ronaldo's longevity is the product of obsessive physical discipline: 5 meals per day, 8 hours of sleep, daily training, and dedicated recovery.",
+        howTheyActuallyUseIt: "Treats every day as a performance opportunity. Recovery is training. Sleep is training. Nutrition is training.",
+        whenTheyFail: "The discipline creates friction with teams that do not share the same commitment level.",
+        relatedBlindSpot: "Perfectionism can damage team chemistry and create unrealistic standards for teammates.",
+      },
+    ],
+    decisionJournal: [
+      {
+        year: "2018",
+        situation: "Real Madrid contract renegotiation failed. Ronaldo felt disrespected by the club's offer.",
+        optionsTheyConsidered: ["Stay at Real Madrid and accept reduced terms", "Move to Juventus in Serie A", "Return to Manchester United"],
+        choiceMade: "Move to Juventus — a new challenge and a contract reflecting his status.",
+        whyTheyPickedIt: "Juventus offered both financial respect and a new competitive challenge.",
+        whatHappened: "28 goals in 75 appearances. Effective but not transformative. Juventus failed to win the Champions League.",
+        wouldDoDifferently: "Ronaldo later showed regret about leaving Real Madrid.",
+      },
+    ],
+    failureCases: [
+      {
+        year: "2016",
+        whatFailed: "Euro 2016 Final: Portugal beat France 1-0 but Ronaldo was stretchered off in the 25th minute with a knee injury.",
+        whyItFailed: "Knee collision. Could not participate in the deciding match.",
+        whatTheyLearned: "The team won without him — the culture he helped build allowed others to step up.",
+        publicNarrative: "Ronaldo got lucky — his team won when he was injured.",
+        privateReality: "He was devastated but recognized the team culture was built by his leadership. Used it as motivation.",
+      },
+    ],
+    competitiveWorldview: {
+      marketFrame: "Football is a results business. Goals, trophies, records. Everything else is commentary.",
+      threatRanking: [],
+      strategicFears: ["Being surpassed by Messi in historical legacy", "Declining physical performance reducing scoring rate"],
+      strategicConfidence: ["His physical conditioning and longevity", "His penalty-box intelligence and heading ability", "His mental strength in high-pressure moments"],
+      contrarianBeliefs: ["Rest is for the weak", "Individual awards matter more than team trophies", "You should always be the best and never accept second place"],
+    },
   },
 
   {
@@ -7020,11 +7089,39 @@ BOUNDARIES
       { title: "Position Sizing Review", icon: "📊", description: "Check whether your position sizing matches your conviction", prompt: "I have a [position size]% allocation to [trade] with [thesis]. Apply Soros' conviction sizing framework: is this appropriately sized for the asymmetry? Should I be scaling in or cutting? What's the right pilot size?", tags: ["Sizing", "Risk", "Conviction"] },
       { title: "Policy Impact Assessment", icon: "🏛️", description: "Analyze how a policy change creates trading opportunities", prompt: "A central bank/government just [action]. Apply Soros' political economy framework: what incentive structure does this create, how will markets reflexively respond, and where's the trading opportunity in the distortion?", tags: ["Policy", "Political Economy", "Macro"] },
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "jesse-livermore",
@@ -7155,11 +7252,39 @@ BOUNDARIES
         tags: ["Risk Management", "Money Management", "Trading Psychology"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "paul-tudor-jones",
@@ -7282,11 +7407,39 @@ BOUNDARIES
         tags: ["Technical Analysis", "Wave Counting", "Risk Management"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "ray-dalio",
@@ -7410,11 +7563,39 @@ BOUNDARIES
         tags: ["Portfolio Analysis", "Risk Management", "Scenario Planning"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "ed-seykota",
@@ -7537,11 +7718,39 @@ BOUNDARIES
         tags: ["Risk Management", "Position Sizing", "Mathematics"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "warren-buffett",
@@ -7666,11 +7875,39 @@ BOUNDARIES
         tags: ["Capital Allocation", "Portfolio Strategy", "Discipline"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "richard-dennis",
@@ -7793,11 +8030,39 @@ BOUNDARIES
         tags: ["Trend Following", "Risk Management", "Trading"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "stanley-druckenmiller",
@@ -7921,11 +8186,39 @@ BOUNDARIES
         tags: ["Macro Policy", "Currency", "Trading"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "steve-cohen",
@@ -8056,11 +8349,39 @@ BOUNDARIES
         tags: ["Risk Management", "Performance Attribution", "Portfolio Analysis"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "rakesh-jhunjhunwala",
@@ -8182,11 +8503,39 @@ BOUNDARIES
         tags: ["Portfolio Management", "Conviction Sizing", "Risk Tolerance"]
       }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
 
   {
@@ -8270,11 +8619,39 @@ BOUNDARIES
     useCasePrompts: [
       { title: "Product Vision Development", icon: "Lightbulb", description: "Develop a product vision using Jobs' first-principles and simplicity framework", prompt: "I need to design [PRODUCT/FEATURE]. Jobs-style approach: (1) What is the core job this product does? (2) What is the simplest way to do that job? (3) What must we remove to achieve simplicity? (4) How should this feel? (5) What detail will make this magical? Sketch the vision.", tags: ["Product Design", "Strategy", "Innovation"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
 
   {
@@ -8358,11 +8735,39 @@ BOUNDARIES
     useCasePrompts: [
       { title: "Customer Obsession Analysis", icon: "Users", description: "Identify customer need and build advantage through obsessive focus", prompt: "I'm building [PRODUCT/SERVICE]. Bezos approach: (1) Who is the customer? (2) What do they really need? (3) How is current solution failing them? (4) What would delight them? (5) What is unit economics? (6) How can scale make this defensible? Start with customer, then engineer backwards.", tags: ["Strategy", "Customer", "Economics"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
 
   {
@@ -8446,11 +8851,39 @@ BOUNDARIES
     useCasePrompts: [
       { title: "Architecture for Next Computing Era", icon: "Cpu", description: "Design computing platform for emerging technological shift", prompt: "I'm predicting [COMPUTING SHIFT] will dominate in 10 years. Huang approach: (1) What are fundamental computing requirements? (2) What architecture solves this better? (3) What is minimum viable platform? (4) How do we lock in developers? (5) What tools do we build? (6) How do we position as inevitable infrastructure? Design the platform.", tags: ["Architecture", "Strategy", "Innovation"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
 
   {
@@ -8534,11 +8967,39 @@ BOUNDARIES
     useCasePrompts: [
       { title: "Stakeholder Alignment Strategy", icon: "Users", description: "Build alignment across multiple stakeholders for transformative initiative", prompt: "I'm launching [INITIATIVE] needing buy-in from [STAKEHOLDERS]. Altman approach: (1) What does each stakeholder need to believe? (2) What narrative unites them? (3) What relationships do I need to build? (4) How do I communicate so everyone feels heard? (5) How do I create momentum? Develop stakeholder alignment strategy.", tags: ["Leadership", "Politics", "Strategy"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "peter-lynch",
@@ -8622,11 +9083,39 @@ BOUNDARIES
       { title: "Business Analysis Framework", icon: "TrendingUp", description: "Evaluate company quality and competitive position", prompt: "I'm considering investing in [COMPANY] in the [INDUSTRY]. Lynch approach: (1) What does this company do and why? (2) What's its competitive advantage? (3) What's the financial quality—margins, returns, debt? (4) What secular trends benefit it? (5) Is the price reasonable relative to growth? (6) What could break this thesis? Develop thorough business analysis.", tags: ["Analysis", "Investing", "Research"] },
       { title: "Secular Trend Identification", icon: "Lightbulb", description: "Identify long-term structural trends driving business growth", prompt: "I notice [TREND] happening in [INDUSTRY/MARKET]. Lynch approach: (1) Is this truly secular or cyclical? (2) Which companies benefit most? (3) How long will this trend persist? (4) Are current valuations reflecting trend? (5) What could disrupt this trend? (6) How do I position for it? Develop investment strategy around structural trends.", tags: ["Analysis", "Strategy", "Trends"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "carl-icahn",
@@ -8710,11 +9199,39 @@ BOUNDARIES
       { title: "Activist Restructuring Strategy", icon: "Zap", description: "Identify restructuring levers in undervalued company", prompt: "I've identified [COMPANY] as undervalued trading at [PRICE]. Icahn approach: (1) Where is this company undervalued vs. breakup value? (2) What operational changes can improve returns? (3) What non-core assets should be divested? (4) Who are better operators? (5) How do I accumulate control? (6) What's my restructuring plan? (7) How do I force implementation? Develop activist strategy.", tags: ["Strategy", "Investing", "Restructuring"] },
       { title: "Capital Allocation Pressure", icon: "TrendingUp", description: "Force more rational capital allocation and shareholder returns", prompt: "I own [STAKE] in [COMPANY] with [DESCRIPTION] problem. Icahn approach: (1) Is management hoarding excessive cash? (2) Are they making value-destructive acquisitions? (3) Should we demand buybacks or dividends? (4) Should we replace management? (5) What's my shareholder proposal? (6) How do I pressure the board? Develop capital allocation campaign.", tags: ["Strategy", "Activism", "Finance"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "charlie-munger",
@@ -8798,11 +9315,39 @@ BOUNDARIES
       { title: "Multi-Discipline Analysis Framework", icon: "Lightbulb", description: "Apply latticework of mental models from multiple disciplines", prompt: "I'm analyzing [SITUATION] and want to understand it comprehensively. Munger approach: (1) What are the psychological factors—biases, incentives, human nature? (2) What does history show about similar situations? (3) What are the economics—incentive structures, competitive dynamics? (4) What are the engineering/operational realities? (5) What mathematical relationships matter? (6) How do these insights combine? Develop multi-discipline analysis.", tags: ["Analysis", "Thinking", "Strategy"] },
       { title: "Inversion for Risk Analysis", icon: "AlertTriangle", description: "Understand failure modes to identify success requirements", prompt: "I'm considering [DECISION/INVESTMENT] and want to understand risks deeply. Munger approach: (1) How would this fail? (2) What failure modes are most likely? (3) What events would prove my thesis wrong? (4) What incentive misalignments could cause failure? (5) What historical patterns warn of similar failures? (6) What am I missing? Identify and mitigate failure modes.", tags: ["Risk", "Analysis", "Strategy"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "benjamin-graham",
@@ -8886,11 +9431,39 @@ BOUNDARIES
       { title: "Intrinsic Value Calculation", icon: "Calculator", description: "Determine fundamental value of company through rigorous financial analysis", prompt: "I'm evaluating [COMPANY] trading at [PRICE]. Graham approach: (1) What's the earning power? (2) What's the dividend yield? (3) What's the growth rate? (4) What's the balance sheet strength? (5) Calculate intrinsic value conservatively (6) What margin of safety exists? (7) Is margin adequate? Develop valuation analysis.", tags: ["Analysis", "Valuation", "Finance"] },
       { title: "Margin of Safety Framework", icon: "Shield", description: "Ensure adequate safety margin in investment decisions", prompt: "I'm considering [INVESTMENT] at [PRICE/VALUATION]. Graham approach: (1) What's your intrinsic value estimate? (2) What's the margin of safety? (3) What could make your analysis wrong? (4) Is margin adequate given risks? (5) What price would provide adequate safety? Develop risk-adjusted investment framework.", tags: ["Analysis", "Risk", "Investing"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "john-bogle",
@@ -8974,11 +9547,39 @@ BOUNDARIES
       { title: "Cost Structure Optimization", icon: "DollarSign", description: "Analyze and reduce fees and costs in investment approach", prompt: "I'm managing [FUND/PORTFOLIO] with [FEE STRUCTURE]. Bogle approach: (1) What's the total cost of ownership? (2) What fees can be eliminated? (3) What's the impact on returns? (4) How does cost compare to benchmarks? (5) Can we shift to lower-cost alternatives? (6) What would cost reduction mean for investor returns? Optimize cost structure.", tags: ["Finance", "Strategy", "Optimization"] },
       { title: "Investment Strategy for Long-Term Wealth", icon: "TrendingUp", description: "Design simple, low-cost strategy for patient, long-term investors", prompt: "I'm developing [INVESTMENT STRATEGY] for [INVESTOR TYPE]. Bogle approach: (1) What does research show about what drives long-term returns? (2) Can we simplify the approach? (3) How can we minimize costs? (4) What diversification reduces risk? (5) What role does discipline play? (6) How do we handle volatility? Design simple, low-cost, long-term strategy.", tags: ["Strategy", "Investing", "Planning"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "howard-marks",
@@ -9062,11 +9663,39 @@ BOUNDARIES
       { title: "Cycle Position and Deployment Strategy", icon: "BarChart3", description: "Understand where we are in market cycle and appropriate deployment level", prompt: "I'm assessing [MARKET/ASSET CLASS] and current positioning. Marks approach: (1) Where are we in the cycle? (2) What's been priced in? (3) What risks are underestimated? (4) What's the risk-reward? (5) How much capital should I deploy? (6) What's my downside protection? Develop cycle-aware strategy.", tags: ["Strategy", "Analysis", "Risk"] },
       { title: "Risk-Reward Assessment Framework", icon: "Scale", description: "Evaluate whether risk is adequately compensated by potential reward", prompt: "I'm considering [OPPORTUNITY] with [EXPECTED RETURN] and [IDENTIFIED RISKS]. Marks approach: (1) What's the potential upside? (2) What's the potential downside? (3) How likely are each scenarios? (4) What risks am I being paid to take? (5) What risks am I taking for free? (6) Is risk-reward compelling? Develop risk-reward analysis.", tags: ["Analysis", "Risk", "Investing"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
   {
     id: "cathie-wood",
@@ -9150,10 +9779,38 @@ BOUNDARIES
       { title: "Disruptive Innovation Thesis Development", icon: "Lightbulb", description: "Identify transformative technology trends and build investment thesis around them", prompt: "I've noticed [TECHNOLOGY] emerging with potential to transform [INDUSTRY/MARKET]. Wood approach: (1) Is this truly disruptive or incremental improvement? (2) What companies are best positioned to benefit? (3) What's the multi-year market opportunity? (4) What's the path to adoption? (5) What could prevent disruption? (6) How much should we allocate? Develop disruptive innovation thesis.", tags: ["Strategy", "Analysis", "Innovation"] },
       { title: "Conviction Position Sizing", icon: "Target", description: "Size concentrated conviction positions based on thesis strength and risk tolerance", prompt: "I've developed strong conviction about [THEME] with [EXPECTED UPSIDE]. Wood approach: (1) How confident am I in thesis? (2) What's the multi-year return potential? (3) What's the downside if wrong? (4) How much volatility can I tolerate? (5) Should this be concentrated or diversified? (6) How do I communicate thesis to gain alignment? Develop conviction position sizing approach.", tags: ["Strategy", "Investing", "Risk"] }
     ],
-    competitors: [],
-    mentalModels: [],
-    skillChain: [],
-    decisionJournal: [],
-    failureCases: []
+    competitors: [
+      { id: "bill-gates", name: "Bill Gates", description: "Microsoft vs Apple: Jobs vs Gates represented opposing visions of computing (integrated closed system vs open platform)", rivalry: "Intense rivalry through 1990s; Gates eventually conceded Jobs' product vision was superior; both respected each other intellectually", lessons: "Open vs closed is not binary—it depends on ecosystem maturity and user experience priorities" },
+      { id: "samsung", name: "Samsung", description: "Mass-market smartphone competitor that copied Apple's design language and sued aggressively", rivalry: "Legal warfare 2011-2018 over design patents; Samsung found to infringe, paid $1B+ in damages", lessons: "Design is defensible IP but litigation is expensive; better to move faster than copyists" },
+      { id: "google", name: "Google (Android)", description: "Open-source mobile OS that became the dominant alternative to iOS", rivalry: "Jobs was furious at Google for Android; considered it 'grand theft of iPhone'; Apple eventually dominated high end while Android won volume", lessons: "Open platforms win volume; closed ecosystems win margins. Both strategies work at different market segments" }
+    ],
+    mentalModels: [
+      { name: "Intersection of Technology and Liberal Arts", description: "The best products sit at the intersection of deep technology and humanistic understanding. Technology alone is cold; liberal arts alone is impractical. Only their intersection creates products people love.", source: "Stanford 2005 Commencement" },
+      { name: "First-Principles: Simplicity", description: "Simplicity is the ultimate sophistication. Remove everything that doesn't serve the user. Every layer of complexity is a failure of design. Perfection is achieved when there is nothing left to remove.", source: "Various interviews" },
+      { name: "Einstein's Constraint", description: "Everything should be made as simple as possible, but not simpler. Simplify ruthlessly, but not to the point of removing necessary functionality.", source: "Design philosophy" },
+      { name: "Stay Hungry, Stay Foolish", description: "Never stop being hungry for knowledge and never lose the foolish courage to challenge conventions. Comfort breeds stagnation.", source: "Stanford 2005 Commencement" },
+      { name: "Digerati Heaven / hell", description: "In the consumer electronics wars, the top of the market (heaven) captures most profit while the middle (purgatory) fights for scraps. Bottom (hell) is commodity race to zero.", source: "Business strategy" }
+    ],
+    skillChain: [
+      { sequence: 1, skill: "Deep Technical Understanding", description: "Grasp how technology works at the component level. Not a programmer, but understands engineering constraints and possibilities. Studies HP technical manuals as a teenager." },
+      { sequence: 2, skill: "Design Aesthetics", description: "Hone refined aesthetic taste through obsessive study of typography, industrial design, calligraphy, Zen Buddhism. Design is not just appearance—it's how things work." },
+      { sequence: 3, skill: "Product Vision", description: "Synthesize technical capability with human desire to imagine products 5-10 years ahead. Can articulate the complete product vision before engineers believe it's possible." },
+      { sequence: 4, skill: "Brand Storytelling", description: "Tell stories that make products meaningful. Marketing is about values. The narrative transforms a device into a cultural artifact." },
+      { sequence: 5, skill: "Keynote Mastery", description: "Transform product launches into cultural events. Every slide deliberate, every demo rehearsed, every word chosen. Keynotes become the most anticipated moments in tech." }
+    ],
+    decisionJournal: [
+      { date: "1976", situation: "Should I stay in college or drop out?", decision: "Drop out of Reed College to follow curiosity and audit classes that interested him", outcome: "Could not see the connective tissue at the time; dropping out let him drop into calligraphy class, which later defined Apple's typography advantage", lesson: "Sometimes you can only connect dots looking backward; follow genuine curiosity even when it looks irrational" },
+      { date: "1985", situation: "Should I fight the board or accept being ousted?", decision: "Accepted ousting from Apple after losing confidence of board", outcome: "This was the best thing that happened to him—founded NeXT, bought Pixar, returned to Apple 10 years later with more experience and perspective", lesson: "Sometimes losing everything is necessary to find what you're meant to build" },
+      { date: "1996", situation: "Should I return to Apple even if it meant taking a pay cut to $1?", decision: "Returned to Apple, took $1 salary, received stock options as consultant", outcome: "Saved Apple from near-bankruptcy; built iMac, iPod, iPhone, iPad—most valuable company in world by 2012", lesson: "Money is not the primary motivator; mission is; lead with vision and the money follows" },
+      { date: "2001", situation: "Should I build a closed integrated iPhone or an open platform?", decision: "Closed integrated system: hardware + software + services controlled by Apple", outcome: "Created the most profitable product in history; set the standard for premium smartphones; Android won volume but Apple captured 75%+ industry profits", lesson: "Control over user experience beats open platform in premium; both strategies can coexist" },
+      { date: "2006", situation: "Should I keep Pixar independent or sell to Disney?", decision: "Sold Pixar to Disney for $7.4B; remained CEO of Pixar and majority shareholder", outcome: "Maximized value for shareholders while keeping creative control; Disney's distribution amplified Pixar's creative vision", lesson: "Know when to sell and when to hold; strategic sale can amplify rather than diminish creative mission" }
+    ],
+    failureCases: [
+      { name: "Apple Lisa (1983)", description: "Released Lisa as Apple's first commercial GUI computer at $9,995, too expensive for the target market of business users. The product was technically impressive but commercially a failure.", lesson: "High price combined with business users who didn't need GUI. Premium positioning requires matching price with right customer segment." },
+      { name: "Apple III (1980)", description: "Rushed to market to compete with IBM PC; had numerous hardware defects including chips that would fall out of sockets. Recalled many units. Quality problems were embarrassment.", lesson: "Rushing to market destroys quality and brand. Ship when ready, not when forced by competition." },
+      { name: "Macintosh Office (1985)", description: "Attempted to market Macintosh as business productivity tool through partnerships with FileMaker, Lotus, Aldus. Failed because no network, no laser printer, no business software.", lesson: "Products must be complete before launch. Business users need ecosystems, not single devices." },
+      { name: "NeXT's Commercial Failure (1985-1997)", description: "Despite technically superior NeXT computer, the company struggled commercially. High price, limited software ecosystem, and corporate culture challenges led to near-death.", lesson: "Technical superiority alone is insufficient; ecosystem, price, and timing matter equally." },
+      { name: "Health: Delayed Cancer Treatment (2003-2011)", description: "Refused conventional surgery for his pancreatic neuroendocrine tumor for 9 months, instead pursuing alternative medicine including a vegan diet. By the time he had surgery, the cancer had spread.", lesson: "Willpower cannot override biology. Denial of reality—even when fueled by confidence—is fatal." }
+    ]
   },
 ];
