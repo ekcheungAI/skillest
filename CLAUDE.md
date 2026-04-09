@@ -8,7 +8,7 @@
 
 A **static React web app** that is a Wikipedia-depth library of famous people turned into actionable AI agent personas. Users can:
 
-1. Browse a card-game-style library of 16 personas across 6 categories
+1. Browse a card-game-style library of 22 personas across multiple categories
 2. Click any persona to read their full profile (thinking style, working style, skills, news, relationships, AI prompts)
 3. Add personas to a "stack" and generate a composite AI system prompt
 4. Take a "Persona Match" quiz to find the best AI agent stack for their own working style
@@ -60,7 +60,6 @@ Skillist/
     ├── components/
     │   ├── PersonaCard.tsx
     │   ├── RelationshipGraph.tsx
-    │   ├── UpgradeModal.tsx
     │   ├── ErrorBoundary.tsx
     │   └── ui/
     │       ├── sonner.tsx
@@ -85,7 +84,7 @@ persona-library/
 │       ├── App.tsx                    ← Routes + ScrollToTop + ThemeProvider
 │       ├── index.css                  ← Global design tokens, animations, card styles
 │       ├── lib/
-│       │   └── personas.ts            ← ALL persona data (2642 lines, 16 personas)
+│       │   └── personas.ts            ← ALL persona data (22 personas, full profiles)
 │       ├── pages/
 │       │   ├── Home.tsx               ← Library index: card grid + sidebar + stack tray
 │       │   ├── PersonaDetail.tsx      ← Full persona profile page (6 tabs)
@@ -93,8 +92,7 @@ persona-library/
 │       │   └── NotFound.tsx
 │       └── components/
 │           ├── PersonaCard.tsx        ← Card component (used in PersonaMatch results)
-│           ├── RelationshipGraph.tsx  ← Network graph (used in PersonaDetail Network tab)
-│           └── UpgradeModal.tsx       ← Legacy component, no longer used (paywall removed)
+    │           └── RelationshipGraph.tsx  ← Network graph (used in PersonaDetail Network tab)
 ```
 
 ---
@@ -231,7 +229,7 @@ interface Persona {
 
 ---
 
-## Current Personas (5 loaded, research data for 13 more)
+## Current Personas (22 loaded)
 
 ### Business / Tech (4)
 | ID | Name | Category | Rarity |
@@ -303,15 +301,15 @@ interface Persona {
 
 ## Known Issues / TODO
 
-- [x] **Rarity manual override**: `rarityOverride?: RarityKey` added to Persona interface; applied to Elon Musk (RRR), Larry Ellison (RR), Donald Trump (RR), Li Ka-shing (RR), Erik Ekudden (R), Stephen Chow (RRR)
+- [x] **Rarity manual override**: `rarityOverride?: RarityKey` added to Persona interface; applied to Larry Ellison (RR), Erik Ekudden (R), Stephen Chow (RRR), Philipp Herzig (R), Gustav Söderström (R), Lars Reger (R), Sabine Klauke (R), Tsui Hark (RR), Peter Chan (R), Johnnie To (RR), Wong Kar-wai (RRR), John Woo (RR)
 - [x] **Native Chinese names on detail page**: `nativeName` is now displayed in PersonaDetail hero section below English name
 - [x] **Foil shimmer animation for RR/RRR**: CSS-only `card-shine` animation added to `index.css`, applied to CoverBackground component
 - [x] **Rarity filter in sidebar**: Added to both desktop sidebar and mobile pill row
 - [x] **Home page mobile layout**: Mobile filter section now shows category pills + rarity pills + region pills; 3-column grid already responsive
 - [x] **Stack Tray mobile**: Added mobile bottom-sheet expand/collapse behavior with `mobileExpanded` state
 - [ ] **Real persona photos**: all personas currently use initials fallback; upload headshots to CDN and set `image` field
-- [ ] **Remaining 11 personas** (pending research data): philipp-herzig, gustav-soderstrom, lars-reger, sabine-klauke (European Tech), tsui-hark, peter-chan, johnnie-to, wong-kar-wai, john-woo (HK Directors)
-- [ ] **UpgradeModal.tsx**: unused legacy component; can be removed when ready
+- [x] **All 9 new personas added** (Apr 2026): Philipp Herzig, Gustav Söderström, Lars Reger, Sabine Klauke (European Tech), Tsui Hark, Peter Chan, Johnnie To, Wong Kar-wai, John Woo (HK Directors)
+- [x] **UpgradeModal.tsx**: deleted (legacy component, unused, referenced non-existent TIER_FEATURES)
 - [ ] **PersonaCard.tsx**: legacy component; PersonaMatch uses it for results cards (still functional)
 
 ---
@@ -319,7 +317,7 @@ interface Persona {
 ## Product Roadmap (from PRODUCT_ARCHITECTURE.md)
 
 ### Phase 1 (Current — Static MVP)
-- ✅ 5 persona cards with full profiles + 11 pending research
+- ✅ 22 persona cards with full profiles (4 athletes + 6 tech/business + 1 artist excluded + 9 new: European Tech + HK Directors)
 - ✅ One-click copy system prompt
 - ✅ Stack builder (composite prompt)
 - ✅ Persona Match quiz
@@ -353,6 +351,19 @@ interface Persona {
 | Fraunces serif for headings | Distinctive, editorial feel that avoids the "AI slop" look of Inter-only interfaces |
 | All content open (no paywall) | Removed paywall to maximize shareability and trust; monetization deferred to Phase 2 |
 | `personas.ts` as single source of truth | Trivial to migrate to Supabase/Sanity later — just replace the import with an API call |
+
+---
+
+## Avatar Image Upload Process
+
+When uploading real headshots for personas:
+
+1. **Upload**: Use `manus-upload-file --webdev <image.jpg>` or manually upload to the configured CDN
+2. **Recommended specs**: 400×400px, JPG or WebP, < 200KB
+3. **Update**: Set `image: "<cdn_url>"` in the persona's `personas.ts` entry
+4. **Fallback**: If `image` is empty or fails to load, the `PersonaAvatarThumb` component renders initials with a gradient background
+
+Current status: all personas use `image: ""` (initials fallback). Real photos pending upload.
 
 ---
 

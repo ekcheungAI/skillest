@@ -1,0 +1,265 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PERSONA LIBRARY — DESIGN SYSTEM
+   Philosophy: Premium Card Game Library × Clean SaaS
+   Background: #F7F6F2 (warm cream) | Cards: white with colored left spine
+   Typography: Fraunces (display) + Inter (body) + JetBrains Mono (code)
+   Accent: per-persona color via CSS custom property --persona-accent
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@import "tailwindcss";
+
+/* Explicitly tell Tailwind v4 where to scan for utility classes */
+@source "./";
+
+/* Custom breakpoint for extra-small screens */
+@custom-variant xs (@media (min-width: 480px));
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.985 0.003 80);
+  --foreground: oklch(0.2 0.01 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.01 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.01 60);
+  --primary: oklch(0.2 0.01 60);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.96 0.003 80);
+  --secondary-foreground: oklch(0.35 0.01 60);
+  --muted: oklch(0.96 0.003 80);
+  --muted-foreground: oklch(0.55 0.01 60);
+  --accent: oklch(0.96 0.003 80);
+  --accent-foreground: oklch(0.2 0.01 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.91 0.005 80);
+  --input: oklch(0.91 0.005 80);
+  --ring: oklch(0.5 0.01 60);
+  --chart-1: oklch(0.6 0.18 250);
+  --chart-2: oklch(0.65 0.15 160);
+  --chart-3: oklch(0.7 0.14 80);
+  --chart-4: oklch(0.55 0.2 30);
+  --chart-5: oklch(0.6 0.16 300);
+  --sidebar: oklch(0.98 0.003 80);
+  --sidebar-foreground: oklch(0.2 0.01 60);
+  --sidebar-primary: oklch(0.2 0.01 60);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.96 0.003 80);
+  --sidebar-accent-foreground: oklch(0.2 0.01 60);
+  --sidebar-border: oklch(0.91 0.005 80);
+  --sidebar-ring: oklch(0.5 0.01 60);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href] {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+  @media (min-width: 1024px) {
+    .container { padding-left: 2rem; padding-right: 2rem; max-width: 1280px; }
+  }
+
+  /* ── Persona Card ─────────────────────────────────────────────────── */
+  .persona-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #E5E7EB;
+    overflow: hidden;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    position: relative;
+    /* Colored left spine */
+    border-left: 4px solid var(--persona-accent, #6B7280);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .persona-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.05);
+    border-color: #D1D5DB;
+    border-left-color: var(--persona-accent, #6B7280);
+  }
+
+  /* ── Archetype Badge ──────────────────────────────────────────────── */
+  .archetype-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--persona-accent, #6B7280) 10%, transparent);
+    color: var(--persona-accent, #6B7280);
+    border: 1px solid color-mix(in srgb, var(--persona-accent, #6B7280) 25%, transparent);
+  }
+
+  /* ── Stat Bar ─────────────────────────────────────────────────────── */
+  .stat-bar-track {
+    width: 100%;
+    height: 4px;
+    background: #F3F4F6;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* ── Stack Tray ───────────────────────────────────────────────────── */
+  .stack-tray {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: white;
+    border-top: 1px solid #E5E7EB;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+    transform: translateY(100%);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .stack-tray.visible {
+    transform: translateY(0);
+  }
+
+  /* ── Scrollbar hide ───────────────────────────────────────────────── */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-in {
+  animation: cardIn 0.35s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease both;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in-left {
+  animation: slideInLeft 0.3s ease both;
+}
+
+/* ── Foil Shimmer (RR / RRR cards only) ─────────────────────────────────── */
+@keyframes shimmerSweep {
+  0%   { transform: translateX(-100%) translateY(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) translateY(200%) rotate(25deg); }
+}
+
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 45%,
+    rgba(255, 255, 255, 0.20) 50%,
+    rgba(255, 255, 255, 0.12) 55%,
+    transparent 70%
+  );
+  animation: shimmerSweep 3.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-shine {
+    animation: none;
+  }
+}
+

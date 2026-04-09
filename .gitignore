@@ -46,10 +46,5 @@ next-env.d.ts
 research*.json
 personas.json
 
-# Legacy Vite project (migrated to next-app/)
-src/
-vite.config.ts
-tsconfig.app.json
-tsconfig.node.json
-index.html
+# Lock files
 package-lock.json
