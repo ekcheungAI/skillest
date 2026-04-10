@@ -2267,7 +2267,7 @@ When evaluating a decision: (1) What could permanently impair this capital? (2) 
     accentColor: "#FF6600",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Ma_Yun_%282017-10-19%29_-1.jpg/500px-Ma_Yun_%282017-10-19%29_-1.jpg",
     promptTier: "STANDARD",
-    githubUrl: "https://github.com/ekcheungAI/skillest/blob/main/skills/jack-ma/SKILL.md",
+    githubUrl: "https://github.com/ekcheungAI/skillest/blob/main/persona/jack-ma.skill",
     lastUpdated: "2026-03-01",
     nextUpdateDue: "2026-09-01",
     dataSourceCount: 22,
