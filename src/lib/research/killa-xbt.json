@@ -1,0 +1,84 @@
+{
+  "id": "killa-xbt",
+  "name": "KillaXBT",
+  "twitterHandle": "KillaXBT",
+  "title": "Quantitative Crypto Trader & Founder of KillaLabs",
+  "accentColor": "#F59E0B",
+  "lastUpdated": "2026-04-10",
+  "dataSourceCount": 100,
+  "profile": {
+    "followers": 190652,
+    "following": 136,
+    "profileImage": "https://pbs.twimg.com/profile_images/1970387533675610113/YT8_qH0j_normal.jpg",
+    "bio": "Quantitative trader | since 2019 | $BTC\n\nKillaLabs: https://t.co/1jjvSeIGAu\n\nThis content is for educational purposes and is not directed at UK residents."
+  },
+  "rawAnalysis": {
+    "tweetCount": 100,
+    "followerCount": 190652,
+    "topVocabulary": [
+      { "phrase": "short", "count": 35 },
+      { "phrase": "range", "count": 31 },
+      { "phrase": "bottom", "count": 27 },
+      { "phrase": "still", "count": 25 },
+      { "phrase": "before", "count": 23 },
+      { "phrase": "market", "count": 23 },
+      { "phrase": "likely", "count": 21 },
+      { "phrase": "months", "count": 20 },
+      { "phrase": "highs", "count": 19 },
+      { "phrase": "could", "count": 19 },
+      { "phrase": "sweep", "count": 18 },
+      { "phrase": "cycle", "count": 16 },
+      { "phrase": "april", "count": 16 },
+      { "phrase": "price", "count": 15 },
+      { "phrase": "lower", "count": 15 }
+    ],
+    "dayOfWeekStats": {
+      "Mon": { "count": 14, "avgLikes": 1621 },
+      "Tue": { "count": 17, "avgLikes": 1408 },
+      "Wed": { "count": 24, "avgLikes": 1880 },
+      "Thu": { "count": 16, "avgLikes": 1250 },
+      "Fri": { "count": 10, "avgLikes": 2130 },
+      "Sat": { "count": 7, "avgLikes": 2800 },
+      "Sun": { "count": 12, "avgLikes": 1100 }
+    },
+    "topTweets": [
+      {
+        "text": "I will be swing longing $BTC at 62.6K on 2.75X leverage. Target 150-160K. Probable path: liquidity sweep below 60K into the range lows, followed by strong reversal up.",
+        "likes": 6264,
+        "date": "2026-04-01"
+      },
+      {
+        "text": "My next $BTC prediction was posted 3 weeks ago. You can figure out where we are based on what I'm seeing right now.",
+        "likes": 5336,
+        "date": "2026-04-03"
+      },
+      {
+        "text": "I have cracked the fucking code. We bottom this year August-September latest.",
+        "likes": 4111,
+        "date": "2026-03-28"
+      },
+      {
+        "text": "2027 April-May $BTC creates a new ATH. Approximately 400-500 days from now.",
+        "likes": 3693,
+        "date": "2026-03-20"
+      },
+      {
+        "text": "Overtrading is just expensive boredom. Sometimes, the best trade is no trade.",
+        "likes": 563,
+        "date": "2026-04-10"
+      }
+    ],
+    "engagementStats": {
+      "avgLikes": 1512,
+      "avgRetweets": 89,
+      "totalViews": 20200000
+    },
+    "tweetFrequency": {
+      "byMonth": {
+        "2026-03": 61,
+        "2026-04": 39
+      },
+      "avgPerDay": 2.4
+    }
+  }
+}

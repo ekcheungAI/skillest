@@ -1,0 +1,61 @@
+{
+  "id": "test",
+  "name": "Test Match Special",
+  "twitterHandle": "test",
+  "title": "",
+  "accentColor": "#7C3AED",
+  "image": "https://pbs.twimg.com/profile_images/1693951822388486144/TcmqeubV_normal.jpg",
+  "lastUpdated": "2026-04-10",
+  "dataSourceCount": 0,
+  "profile": {
+    "followers": 528364,
+    "bio": "Home of Test Match Special, providing iconic cricket commentary since 1957. Also follow @tmsproducer @ejrainfordbrent @philtufnell @isaguha @alexhartley93",
+    "profileImage": "https://pbs.twimg.com/profile_images/1693951822388486144/TcmqeubV_normal.jpg"
+  },
+  "rawAnalysis": {
+    "tweetCount": 0,
+    "followerCount": 528364,
+    "topVocabulary": [],
+    "dayOfWeekStats": {
+      "Sun": {
+        "count": 0,
+        "avgLikes": 0
+      },
+      "Mon": {
+        "count": 0,
+        "avgLikes": 0
+      },
+      "Tue": {
+        "count": 0,
+        "avgLikes": 0
+      },
+      "Wed": {
+        "count": 0,
+        "avgLikes": 0
+      },
+      "Thu": {
+        "count": 0,
+        "avgLikes": 0
+      },
+      "Fri": {
+        "count": 0,
+        "avgLikes": 0
+      },
+      "Sat": {
+        "count": 0,
+        "avgLikes": 0
+      }
+    },
+    "topTweets": [],
+    "engagementStats": {
+      "avgLikes": 0,
+      "avgRetweets": 0,
+      "totalViews": 0
+    },
+    "tweetFrequency": {
+      "byMonth": {},
+      "avgPerDay": 0
+    },
+    "webSources": []
+  }
+}

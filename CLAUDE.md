@@ -288,14 +288,55 @@ interface Persona {
 
 ## Adding a New Persona
 
-1. Add a new object to the `personas` array in `client/src/lib/personas.ts`
-2. Follow the `Persona` interface exactly — all fields are required except `nativeName`, `mbtiType`, `enneagramType`
-3. Set `image: ""` if no photo — the initials fallback will handle it
-4. Set `categories` to one or more valid `PersonaCategory` values
-5. The rarity badge and cover color are auto-computed — no manual setting needed
-6. If adding a new category, add it to:
+### Phase 1: Automated Research Pipeline
+
+Before writing any persona content manually, **always run the research pipeline first**:
+
+```bash
+# Quick research (tweets only, fast)
+npx tsx scripts/research/pipeline.ts <handle> --count=200
+
+# Full research (tweets + web + deep research, uses API credits)
+npx tsx scripts/research/pipeline.ts <handle> --count=500 --deep-research
+```
+
+The pipeline:
+1. **TwitterAPI.io** — scrapes 500+ tweets with full metadata (engagement, day-of-week stats, vocabulary)
+2. **Firecrawl** — deep-researches website, YouTube, Wikipedia, news
+3. **Analysis** — extracts vocabulary patterns, day-of-week stats, top tweets, engagement metrics
+4. **Output** — saves raw draft to `scripts/research/output/{handle}_draft.json`
+
+Results are also displayed in the **Research tab** on each persona's detail page.
+
+### Phase 2: Write Persona Content
+
+1. Read the research draft at `scripts/research/output/{handle}_draft.json`
+2. Add a new persona object to `src/lib/personas.ts`
+3. Follow the `Persona` interface exactly — all fields required except `nativeName`, `mbtiType`, `enneagramType`
+4. Copy real research data into persona fields:
+   - `vocabularyPatterns` from `topVocabulary`
+   - `decisionJournal` from notable tweets
+   - `thinkingFrameworks` from methodology threads
+   - `personalityTraits` from bio analysis
+5. Set `image: ""` if no photo — initials fallback handles it
+6. Set `categories` to valid `PersonaCategory` values
+7. Set `rarityOverride` based on average `personalityDimensions` score
+8. If adding a new category, add it to:
    - `PersonaCategory` type in `personas.ts`
    - `CATEGORY_CONFIG` in `Home.tsx`
+
+### Research Data Display
+
+The **Research tab** on `PersonaDetail` shows the raw collected data:
+- Import pipeline output into `src/lib/research/{id}.json`
+- Add entry to `src/lib/research-data.ts` → `researchDrafts` map
+- Tab auto-appears when `researchDrafts[persona.id]` exists
+
+### API Keys
+
+Located in `.env`:
+- `VITE_TWITTER_API_KEY` — TwitterAPI.io (for `scripts/research/` scripts)
+- `VITE_FIRECRAWL_API_KEY` — Firecrawl (for scraping web content)
 
 ---
 
