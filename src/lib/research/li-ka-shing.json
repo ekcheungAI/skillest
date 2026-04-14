@@ -1,0 +1,20 @@
+{
+  "id": "li-ka-shing",
+  "name": "Li Ka-shing",
+  "title": "Chairman of CK Hutchison & Cheung Kong",
+  "accentColor": "#1E3A8A",
+  "lastUpdated": "2026-04-10",
+  "dataSourceCount": 23,
+  "researchType": "web-deep-research",
+  "sources": [
+    { "url": "https://www.bloomberg.com/news/articles/2025-12-21/li-ka-shing-is-remaking-his-empire-as-a-generational-shift-looms", "title": "Li Ka-shing Is Remaking His Empire as a Generational Shift Looms", "chars": 4200 },
+    { "url": "https://www.visiontimes.com/2026/02/12/li-ka-shing-remains-hong-kongs-no-1-billionaire-as-scrutiny-grows-over-panama-canal.html", "title": "Li Ka-shing Remains Hong Kong's No. 1 Billionaire", "chars": 3800 },
+    { "url": "https://www.forbes.com/sites/janeho/2026/02/11/hong-kongs-50-richest-2026/", "title": "Hong Kong's 50 Richest 2026", "chars": 2900 },
+    { "url": "https://www.thestandard.com.hk/finance/article/324320/Forbes-announces-HKs-richest-50-with-Li-Ka-shing-securing-no1", "title": "Forbes announces HK's richest 50", "chars": 2100 },
+    { "url": "https://www.indexbox.io/blog/li-ka-shing-tops-2026-forbes-hong-kong-richest-list-as-wealth-soars/", "title": "Li Ka-shing Tops 2026 Forbes Hong Kong Richest List", "chars": 2400 },
+    { "url": "https://asia.nikkei.com/business/business-asia/ck-hutchison-to-navigate-world-in-turmoil-by-scaling-up", "title": "CK Hutchison to Navigate World in Turmoil", "chars": 3300 }
+  ],
+  "analysisSummary": "Deep web research covering: investment strategy shift toward AI/data centers, Victor Li succession outcomes, CK Hutchison 60% stock surge, Panama Canal port dispute and international arbitration, geopolitical navigation (US-China, UK/Hong Kong), philanthropy and legacy building, decision patterns and key quotes.",
+  "skillFolder": "/Users/ek/Desktop/perskill/skills/li-ka-shing/research",
+  "rawExtractFile": "li-ka-shing-corporate-research-2026-04-10.json"
+}
