@@ -4,7 +4,7 @@
 
 **Version:** 1.0
 
-**Installed from:** https://github.com/ekcheungAI/skillest
+**Installed from:** https://github.com/ekcheungAI/perskill
 
 **Persona ID:** warren-buffett
 
@@ -21,3 +21,11 @@
 ```
 
 ```
+
+## Prompt Version History
+
+| Version | Date | Changes |
+
+|---|---|---|
+
+| 1.0 | 2026-04-08 | Initial release |
