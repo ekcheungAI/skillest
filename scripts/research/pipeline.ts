@@ -36,6 +36,7 @@ try {
 } catch { /* no .env found — rely on CI environment variables */ }
 
 import { scrapeTwitter } from "./twitter-scraper.js";
+import { scrapeThreads } from "./threads-scraper.js";
 import {
   scrapePage,
   deepResearch,
@@ -50,6 +51,7 @@ import { resolve } from "path";
 interface PipelineOptions {
   maxTweets: number;
   skipTweets: boolean;
+  skipThreads: boolean;
   skipWeb: boolean;
   deepResearch: boolean;
   type: PersonaResearchType;
@@ -61,6 +63,7 @@ function parseArgs(): { handle: string; options: PipelineOptions } {
   const options: PipelineOptions = {
     maxTweets: 500,
     skipTweets: false,
+    skipThreads: false,
     skipWeb: false,
     deepResearch: false,
     type: "TWITTER_CRYPTO",
@@ -69,6 +72,7 @@ function parseArgs(): { handle: string; options: PipelineOptions } {
   for (const arg of args) {
     if (arg.startsWith("--count=")) options.maxTweets = parseInt(arg.split("=")[1]);
     if (arg === "--skip-tweets") options.skipTweets = true;
+    if (arg === "--skip-threads") options.skipThreads = true;
     if (arg === "--skip-web") options.skipWeb = true;
     if (arg === "--deep-research") options.deepResearch = true;
     if (arg.startsWith("--type=")) options.type = arg.split("=")[1] as PersonaResearchType;
@@ -476,6 +480,7 @@ async function runPipeline(
   mkdirSync(outDir, { recursive: true });
 
   let tweetData: any = null;
+  let threadsData: any = null;
   let analysis: TweetAnalysis | null = null;
 
   // Step 1: Twitter scraping (if applicable)
@@ -496,6 +501,21 @@ async function runPipeline(
     } catch (e: any) {
       console.warn(`   ⚠️  Twitter scraping failed: ${e.message}`);
     }
+  }
+
+  // Step 1b: Threads scraping (if --skip-threads not set)
+  const threadsAvailable = !!process.env.VITE_META_THREADS_TOKEN;
+  if (!options.skipThreads && threadsAvailable) {
+    console.log("\n🧵 Step 1b: Scraping Threads...");
+    try {
+      threadsData = await scrapeThreads(handle, { maxPosts: options.maxTweets });
+      writeFileSync(resolve(dataDir, `${handle}_threads.json`), JSON.stringify(threadsData, null, 2));
+      console.log(`   ✅ Saved ${threadsData.posts.length} Threads posts`);
+    } catch (e: any) {
+      console.warn(`   ⚠️  Threads scraping failed: ${e.message}`);
+    }
+  } else if (!threadsAvailable) {
+    console.log("\n🧵 Step 1b: Skipped (VITE_META_THREADS_TOKEN not set)");
   }
 
   // Step 2: Web research
@@ -615,6 +635,7 @@ async function main() {
     console.error("\nOptions:");
     console.error("  --count=N          Number of tweets to fetch (default: 500)");
     console.error("  --skip-tweets      Skip Twitter scraping (for non-Twitter personas)");
+    console.error("  --skip-threads     Skip Threads scraping (for personas without Threads)");
     console.error("  --skip-web         Skip web research");
     console.error("  --deep-research    Run Firecrawl deep-research");
     console.error("  --type=TYPE        Persona type: TWITTER_CRYPTO | CHINESE_BUSINESS | HK_ENTREPRENEUR | WESTERN_INVESTOR");
@@ -633,6 +654,11 @@ async function main() {
 
   if (!options.skipTweets && !process.env.VITE_TWITTER_API_KEY) {
     console.error("Error: VITE_TWITTER_API_KEY not set in .env");
+    process.exit(1);
+  }
+
+  if (!options.skipThreads && !process.env.VITE_META_THREADS_TOKEN) {
+    console.error("Error: VITE_META_THREADS_TOKEN not set in .env");
     process.exit(1);
   }
 
