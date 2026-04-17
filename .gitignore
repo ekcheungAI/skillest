@@ -48,3 +48,4 @@ personas.json
 
 # Lock files
 package-lock.json
+.vercel

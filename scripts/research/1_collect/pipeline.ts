@@ -43,8 +43,81 @@ import {
   buildResearchUrlsForType,
   type PersonaResearchType,
 } from "../firecrawl-research.js";
+import {
+  discoverSources,
+  discoveryReport,
+  type DiscoveredSource,
+  type SourceLayer,
+} from "../firecrawl-discovery.js";
 import { writeFileSync, mkdirSync } from "fs";
 import { resolve } from "path";
+
+// ─── Source type tracking ─────────────────────────────────────────────────────
+
+interface ScrapedSource extends DiscoveredSource {
+  statusCode: number;
+  markdown: string;
+  creditsUsed: number;
+  charsCollected: number;
+  layer: SourceLayer;
+}
+
+interface SourceClassification {
+  primaryAuthored: number;
+  primarySpoken: number;
+  institutionalRecord: number;
+  adversarialCritique: number;
+  secondaryProfile: number;
+  lowConfidence: number;
+  total: number;
+}
+
+function classifySources(sources: ScrapedSource[]): SourceClassification {
+  const cls: SourceClassification = {
+    primaryAuthored: 0,
+    primarySpoken: 0,
+    institutionalRecord: 0,
+    adversarialCritique: 0,
+    secondaryProfile: 0,
+    lowConfidence: 0,
+    total: sources.length,
+  };
+  for (const s of sources) {
+    switch (s.sourceType) {
+      case "primary-authored": cls.primaryAuthored++; break;
+      case "primary-spoken": cls.primarySpoken++; break;
+      case "institutional-record": cls.institutionalRecord++; break;
+      case "adversarial-critique": cls.adversarialCritique++; break;
+      case "secondary-profile": cls.secondaryProfile++; break;
+      case "low-confidence": cls.lowConfidence++; break;
+    }
+  }
+  return cls;
+}
+
+// ─── Long-form document ingestion helpers ─────────────────────────────────────
+
+function isDocumentUrl(url: string): boolean {
+  const docExts = [".pdf", ".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx"];
+  return docExts.some(ext => url.toLowerCase().includes(ext));
+}
+
+async function scrapeWithRetry(
+  firecrawlKey: string,
+  url: string,
+  maxRetries = 2
+): Promise<{ result: any; creditsUsed: number }> {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const result = await scrapePage(firecrawlKey, url);
+      return { result, creditsUsed: result.creditsUsed || 0 };
+    } catch (e: any) {
+      if (attempt === maxRetries) throw e;
+      await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+    }
+  }
+  throw new Error("unreachable");
+}
 
 // ─── CLI ────────────────────────────────────────────────────────────────────
 
@@ -53,8 +126,11 @@ interface PipelineOptions {
   skipTweets: boolean;
   skipThreads: boolean;
   skipWeb: boolean;
+  skipDiscovery: boolean;
+  skipLongform: boolean;
   deepResearch: boolean;
   type: PersonaResearchType;
+  personaName?: string;
 }
 
 function parseArgs(): { handle: string; options: PipelineOptions } {
@@ -65,6 +141,8 @@ function parseArgs(): { handle: string; options: PipelineOptions } {
     skipTweets: false,
     skipThreads: false,
     skipWeb: false,
+    skipDiscovery: false,
+    skipLongform: false,
     deepResearch: false,
     type: "TWITTER_CRYPTO",
   };
@@ -74,8 +152,11 @@ function parseArgs(): { handle: string; options: PipelineOptions } {
     if (arg === "--skip-tweets") options.skipTweets = true;
     if (arg === "--skip-threads") options.skipThreads = true;
     if (arg === "--skip-web") options.skipWeb = true;
+    if (arg === "--skip-discovery") options.skipDiscovery = true;
+    if (arg === "--skip-longform") options.skipLongform = true;
     if (arg === "--deep-research") options.deepResearch = true;
     if (arg.startsWith("--type=")) options.type = arg.split("=")[1] as PersonaResearchType;
+    if (arg.startsWith("--name=")) options.personaName = arg.split("=").slice(1).join("=");
   }
 
   return { handle, options };
@@ -403,7 +484,8 @@ function generateTweetStatisticsMd(
 function generateSourceCatalogMd(
   handle: string,
   webPages: any[],
-  deepData: any | null
+  classification: SourceClassification | null,
+  discoveryResult: any | null
 ): string {
   const lines: string[] = [];
   lines.push("# Source Catalog");
@@ -411,52 +493,109 @@ function generateSourceCatalogMd(
   lines.push(`> Compiled ${new Date().toISOString().slice(0, 10)} | ${webPages.length} web pages scraped`);
   lines.push("");
 
-  // Group by domain
-  const groups: Record<string, { url: string; title: string; chars: number; status: number }[]> = {};
+  // Source classification summary
+  if (classification) {
+    lines.push("## Source Classification Summary");
+    lines.push("");
+    lines.push("| Type | Count | Trust Weight | Description |");
+    lines.push("|------|------:|-------------:|-------------|");
+    const typeMeta: Record<string, { desc: string; weight: number }> = {
+      "primaryAuthored": { desc: "Books, letters, essays — person speaks in their own words", weight: 3.0 },
+      "primarySpoken": { desc: "Interviews, podcasts, speeches — unscripted", weight: 2.5 },
+      "institutionalRecord": { desc: "Annual reports, SEC filings, court docs", weight: 2.8 },
+      "adversarialCritique": { desc: "Criticism, investigations, lawsuits", weight: 2.2 },
+      "secondaryProfile": { desc: "Wikipedia, biographies, news profiles", weight: 1.5 },
+      "lowConfidence": { desc: "Random blog posts, low-signal commentary", weight: 0.8 },
+    };
+    const typeKeys: Array<keyof SourceClassification> = [
+      "primaryAuthored", "primarySpoken", "institutionalRecord",
+      "adversarialCritique", "secondaryProfile", "lowConfidence",
+    ];
+    for (const key of typeKeys) {
+      if (key === "total") continue;
+      const count = classification[key] as number;
+      if (count === 0) continue;
+      const meta = typeMeta[key];
+      lines.push(`| ${key} | ${count} | ${meta.weight.toFixed(1)} | ${meta.desc} |`);
+    }
+    lines.push("");
+  }
+
+  // Group by layer (if available)
+  const layerGroups: Record<string, any[]> = {};
   for (const page of webPages) {
-    try {
-      const domain = new URL(page.url).hostname.replace("www.", "");
-      if (!groups[domain]) groups[domain] = [];
-      groups[domain].push({
-        url: page.url,
-        title: page.title || page.url,
-        chars: page.markdown?.length || 0,
-        status: page.statusCode || 0,
-      });
-    } catch {
-      const key = "other";
-      if (!groups[key]) groups[key] = [];
-      groups[key].push({
-        url: page.url,
-        title: page.title || page.url,
-        chars: page.markdown?.length || 0,
-        status: page.statusCode || 0,
-      });
-    }
+    const layer = page.layer || "unknown";
+    if (!layerGroups[layer]) layerGroups[layer] = [];
+    layerGroups[layer].push(page);
   }
 
-  lines.push("## Web Sources by Domain");
+  const layerNames: Record<string, string> = {
+    social: "Social (Twitter/X, Threads)",
+    authored: "Authored (Books, Letters, Essays)",
+    spoken: "Spoken (Interviews, Podcasts, Speeches)",
+    institutional: "Institutional (Filings, Annual Reports)",
+    adversarial: "Adversarial (Criticism, Investigations)",
+    behavioral: "Behavioral (Biographies, Careers)",
+    unknown: "Unknown",
+  };
+
+  lines.push("## Sources by Layer");
   lines.push("");
-  for (const [domain, pages] of Object.entries(groups).sort((a, b) => b[1].length - a[1].length)) {
-    lines.push(`### ${domain} (${pages.length} page${pages.length !== 1 ? "s" : ""})`);
+  for (const [layer, pages] of Object.entries(layerGroups).sort((a, b) => b[1].length - a[1].length)) {
+    if (pages.length === 0) continue;
+    lines.push(`### ${layerNames[layer] || layer} (${pages.length} source${pages.length !== 1 ? "s" : ""})`);
     lines.push("");
-    lines.push(`| Status | Title | Chars |`);
-    lines.push(`|--------|-------|------:|`);
+    lines.push(`| Status | Title | Chars | Weight | Insight |`);
+    lines.push(`|--------|-------|------:|-------:|--------:|`);
     for (const p of pages) {
-      const title = p.title?.slice(0, 60) || p.url.slice(0, 60);
-      const statusIcon = p.status === 200 ? "✅" : "❌";
-      lines.push(`| ${statusIcon} ${p.status} | [${title}](${p.url}) | ${p.chars.toLocaleString()} |`);
+      const title = (p.title || p.url || "").slice(0, 55);
+      const statusIcon = p.statusCode === 200 ? "✅" : "❌";
+      const weight = p.trustWeight ? p.trustWeight.toFixed(1) : "—";
+      const insight = p.insightDensity || "—";
+      lines.push(`| ${statusIcon} ${p.statusCode} | [${title}](${p.url}) | ${(p.markdown?.length || 0).toLocaleString()} | ${weight} | ${insight} |`);
     }
     lines.push("");
   }
 
-  if (deepData?.data?.sources?.length) {
+  // Legacy domain-based grouping for non-classified sources
+  const unclassified = webPages.filter(p => !p.layer);
+  if (unclassified.length > 0) {
+    const groups: Record<string, any[]> = {};
+    for (const page of unclassified) {
+      try {
+        const domain = new URL(page.url).hostname.replace("www.", "");
+        if (!groups[domain]) groups[domain] = [];
+        groups[domain].push(page);
+      } catch {
+        const key = "other";
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(page);
+      }
+    }
+    lines.push("## Sources by Domain (unclassified)");
+    lines.push("");
+    for (const [domain, pages] of Object.entries(groups).sort((a, b) => b[1].length - a[1].length)) {
+      lines.push(`### ${domain} (${pages.length} page${pages.length !== 1 ? "s" : ""})`);
+      lines.push("");
+      lines.push(`| Status | Title | Chars |`);
+      lines.push(`|--------|-------|------:|`);
+      for (const p of pages) {
+        const title = (p.title || p.url || "").slice(0, 55);
+        const statusIcon = p.statusCode === 200 ? "✅" : "❌";
+        lines.push(`| ${statusIcon} ${p.statusCode} | [${title}](${p.url}) | ${(p.markdown?.length || 0).toLocaleString()} |`);
+      }
+      lines.push("");
+    }
+  }
+
+  // Deep research sources
+  if (discoveryResult?.data?.sources?.length) {
     lines.push("## Deep Research Sources");
     lines.push("");
     lines.push("| # | Source |");
     lines.push("|--|--------|");
-    for (let i = 0; i < deepData.data.sources.length; i++) {
-      const src = deepData.data.sources[i];
+    for (let i = 0; i < discoveryResult.data.sources.length; i++) {
+      const src = discoveryResult.data.sources[i];
       lines.push(`| ${i + 1} | ${src} |`);
     }
     lines.push("");
@@ -470,7 +609,7 @@ function generateSourceCatalogMd(
 async function runPipeline(
   handle: string,
   options: PipelineOptions
-): Promise<{ handle: string; analysis: TweetAnalysis | null; webPages: any[]; deepData: any | null }> {
+): Promise<{ handle: string; analysis: TweetAnalysis | null; webPages: any[]; deepData: any | null; discoveryResult: any | null; sourceClassification: SourceClassification | null }> {
   const apiKey = process.env.VITE_TWITTER_API_KEY!;
   const firecrawlKey = process.env.VITE_FIRECRAWL_API_KEY!;
 
@@ -518,35 +657,124 @@ async function runPipeline(
     console.log("\n🧵 Step 1b: Skipped (VITE_META_THREADS_TOKEN not set)");
   }
 
-  // Step 2: Web research
+  // ─── Step 0: Discovery (NEW — search-driven source finding) ─────────────────
+  let discoveryResult: any | null = null;
+  let priorityTargets: DiscoveredSource[] = [];
+
+  if (!options.skipDiscovery) {
+    console.log("\n🔍 Step 0: Search-driven source discovery...");
+    const personaName = options.personaName || handle;
+    try {
+      discoveryResult = await discoverSources(personaName, options.type, { maxQueries: 20 });
+      priorityTargets = discoveryResult.priorityScrapeTargets || [];
+
+      writeFileSync(
+        resolve(dataDir, `${handle}_discovery.json`),
+        JSON.stringify(discoveryResult, null, 2)
+      );
+      const discReport = discoveryReport(discoveryResult);
+      writeFileSync(resolve(outDir, "00-discovery-report.md"), discReport);
+      console.log(`   ✅ Discovery: ${discoveryResult.totalSources} sources across 6 layers`);
+      console.log(`   ✅ Generated 00-discovery-report.md`);
+      console.log(`   📊 Avg relevance: ${discoveryResult.metadata.avgRelevanceScore} | Searches: ${discoveryResult.metadata.searchesRun}`);
+
+      if (discoveryResult.metadata.coverageGaps.length > 0) {
+        console.log(`   ⚠️  Coverage gaps:`);
+        for (const gap of discoveryResult.metadata.coverageGaps.slice(0, 3)) {
+          console.log(`      • ${gap}`);
+        }
+      }
+    } catch (e: any) {
+      console.warn(`   ⚠️  Discovery failed: ${e.message} — falling back to hardcoded URLs`);
+      options.skipDiscovery = true;
+    }
+  } else {
+    console.log("\n🔍 Step 0: Skipped (--skip-discovery)");
+  }
+
+  // ─── Step 2: Web research (now uses discovery targets OR fallback URLs) ──────
   let webPages: any[] = [];
+  let sourceClassification: SourceClassification | null = null;
   if (!options.skipWeb) {
     console.log("\n🌐 Step 2: Web research via Firecrawl...");
-    const urls = buildResearchUrlsForType(handle, options.type);
+
+    // Determine URLs: discovery targets take priority, fallback to hardcoded
+    const urls = options.skipDiscovery
+      ? buildResearchUrlsForType(handle, options.type)
+      : priorityTargets.map((src: DiscoveredSource) => ({
+          url: src.url,
+          label: src.title?.slice(0, 60) || src.url,
+          priority: src.insightDensity === "high" ? "high" as const : "medium" as const,
+          reason: `${src.layer} / ${src.sourceType} (trust: ${src.trustWeight})`,
+        }));
+
+    if (options.skipDiscovery) {
+      console.log(`   (Discovery skipped — using ${urls.length} hardcoded fallback URLs)`);
+    } else {
+      console.log(`   Scraping ${urls.length} priority targets from discovery`);
+    }
 
     webPages = [];
-    for (const { url, label } of urls) {
-      console.log(`   📄 ${label}: ${url}`);
+    for (const target of urls) {
+      const label = typeof target === "string" ? target : target.label;
+      const url = typeof target === "string" ? target : target.url;
+      console.log(`   📄 ${label}: ${url.slice(0, 70)}`);
       try {
         const result = await scrapePage(firecrawlKey, url);
-        webPages.push(result);
-        await new Promise((r) => setTimeout(r, 300));
+        webPages.push({
+          ...result,
+          layer: typeof target !== "string" && "reason" in target ? (target.reason || "unknown") : "unknown",
+          insightDensity: typeof target !== "string" && "insightDensity" in target ? target.insightDensity : "unknown",
+        });
+        await new Promise((r) => setTimeout(r, 400));
       } catch (e: any) {
         console.warn(`   ⚠️  Failed: ${e.message}`);
       }
     }
 
     const successful = webPages.filter(p => p.statusCode === 200 && p.markdown.length > 100);
+
+    // Enrich with discovery metadata where available
+    if (discoveryResult && !options.skipDiscovery) {
+      const srcMap = new Map(discoveryResult.topSources.map((s: any) => [s.url, s]));
+      for (const page of webPages) {
+        const disc = srcMap.get(page.url);
+        if (disc) {
+          page.sourceType = disc.sourceType;
+          page.layer = disc.layer;
+          page.trustWeight = disc.trustWeight;
+          page.insightDensity = disc.insightDensity;
+          page.relevanceScore = disc.relevanceScore;
+        }
+      }
+    }
+
+    // Classify scraped sources
+    const scrapedWithClass = successful.filter(p => p.sourceType);
+    if (scrapedWithClass.length > 0) {
+      sourceClassification = classifySources(scrapedWithClass);
+    }
+
     writeFileSync(resolve(dataDir, `${handle}_web.json`), JSON.stringify(webPages, null, 2));
+    const totalChars = successful.reduce((s: number, p: any) => s + p.markdown.length, 0);
     console.log(
       `   ✅ Scraped ${successful.length}/${webPages.length} pages ` +
-      `(${successful.reduce((s: number, p: any) => s + p.markdown.length, 0).toLocaleString()} total chars)`
+      `(${totalChars.toLocaleString()} total chars)`
     );
 
-    // Source catalog
-    const catalogMd = generateSourceCatalogMd(handle, successful, null);
+    // Source catalog with classification
+    const catalogMd = generateSourceCatalogMd(handle, successful, sourceClassification, discoveryResult);
     writeFileSync(resolve(outDir, "00-source-catalog.md"), catalogMd);
-    console.log(`   ✅ Generated 00-source-catalog.md`);
+    console.log(`   ✅ Generated 00-source-catalog.md (with trust weights)`);
+
+    // Long-form documents report (if any)
+    const docs = successful.filter(p => isDocumentUrl(p.url));
+    if (docs.length > 0) {
+      console.log(`   📄 ${docs.length} long-form documents scraped:`);
+      for (const doc of docs) {
+        console.log(`      • ${doc.title?.slice(0, 60) || doc.url} — ${doc.markdown.length.toLocaleString()} chars`);
+      }
+    }
   }
 
   // Step 3: Deep research
@@ -618,11 +846,15 @@ async function runPipeline(
     console.log(`  Avg/day: ${analysis.avgTweetsPerDay}`);
     console.log(`  Avg likes: ${analysis.engagementStats.avgLikes.toLocaleString()}`);
   }
+  console.log(`  Discovery: ${discoveryResult ? `${discoveryResult.totalSources} sources` : "skipped"}`);
+  if (sourceClassification) {
+    console.log(`  Sources: ${sourceClassification.primaryAuthored} authored / ${sourceClassification.primarySpoken} spoken / ${sourceClassification.institutionalRecord} institutional / ${sourceClassification.adversarialCritique} adversarial`);
+  }
   console.log(`  Web pages: ${webPages.length}`);
   console.log(`  Deep research: ${options.deepResearch ? "ON" : "off"}`);
   console.log("═".repeat(60) + "\n");
 
-  return { handle, analysis, webPages, deepData };
+  return { handle, analysis, webPages, deepData, discoveryResult, sourceClassification };
 }
 
 // ─── CLI entry point ──────────────────────────────────────────────────────────
@@ -637,13 +869,22 @@ async function main() {
     console.error("  --skip-tweets      Skip Twitter scraping (for non-Twitter personas)");
     console.error("  --skip-threads     Skip Threads scraping (for personas without Threads)");
     console.error("  --skip-web         Skip web research");
+    console.error("  --skip-discovery   Skip search-driven discovery (use hardcoded fallback URLs)");
+    console.error("  --skip-longform    Skip long-form document ingestion");
     console.error("  --deep-research    Run Firecrawl deep-research");
     console.error("  --type=TYPE        Persona type: TWITTER_CRYPTO | CHINESE_BUSINESS | HK_ENTREPRENEUR | WESTERN_INVESTOR");
+    console.error("  --name=NAME        Full display name for discovery queries (default: handle)");
     console.error("\nTypes:");
     console.error("  TWITTER_CRYPTO     Default. Crypto/trading persona with active Twitter.");
     console.error("  CHINESE_BUSINESS   No Twitter. Chinese-language sources. 中文人物.");
     console.error("  HK_ENTREPRENEUR   Hong Kong entrepreneur. Wikipedia/zh + industry media.");
     console.error("  WESTERN_INVESTOR   Western investor. EN Wikipedia + annual reports.");
+    console.error("\nPipeline steps (default: all enabled):");
+    console.error("  1. Discovery    — Search-driven source finding across 6 layers");
+    console.error("  2. Twitter      — Tweet scraping + vocabulary analysis");
+    console.error("  3. Threads       — Threads post scraping (if token available)");
+    console.error("  4. Web scrape   — Priority URLs from discovery (with trust weights)");
+    console.error("  5. Deep research — Era-segmented deep research queries");
     process.exit(1);
   }
 

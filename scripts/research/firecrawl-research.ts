@@ -120,6 +120,30 @@ export function buildResearchUrls(
   return buildResearchUrlsForType(handle, domain ? "TWITTER_CRYPTO" : "TWITTER_CRYPTO");
 }
 
+// ─── Firecrawl search ────────────────────────────────────────────────────────
+
+export async function searchFirecrawl(
+  apiKey: string,
+  query: string,
+  limit = 10
+): Promise<any> {
+  const res = await fetch(`${FIRECRAWL_BASE}/search`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query, limit }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Firecrawl search error ${res.status}: ${text}`);
+  }
+
+  return res.json();
+}
+
 // ─── Firecrawl scrape ────────────────────────────────────────────────────────
 
 export async function scrapePage(

@@ -1,0 +1,92 @@
+[
+  {
+    "url": "https://www.bloomberg.com/opinion/articles/2015-11-11/li-ka-shing-s-power-play-falls-short",
+    "label": "Li Ka-shing's Power Play Falls Short - Bloomberg",
+    "priority": "high",
+    "reason": "authored / primary-authored — trust: 3"
+  },
+  {
+    "url": "https://medium.com/@GlobalTimesSingapore/superman-traitor-or-visionary-the-enduring-enigma-of-li-ka-shing-d0b59aba0f22",
+    "label": "Superman, Traitor, or Visionary? The Enduring Enigma of Li K",
+    "priority": "high",
+    "reason": "authored / primary-authored — trust: 3"
+  },
+  {
+    "url": "https://medium.com/@alphasignal/how-chinese-billionaire-li-ka-shing-would-manage-your-income-449997eda897",
+    "label": "How Chinese billionaire Li Ka-Shing would manage your income",
+    "priority": "high",
+    "reason": "authored / primary-authored — trust: 3"
+  },
+  {
+    "url": "https://medium.com/@davekarpinsky/li-ka-shing-the-untold-secrets-of-the-billionaire-superman-of-asia-18986bde1e1a",
+    "label": "Li Ka-Shing: The Untold Secrets of the Billionaire “Superman",
+    "priority": "high",
+    "reason": "authored / primary-authored — trust: 3"
+  },
+  {
+    "url": "https://medium.com/@fkxjpmhtzym1688/the-art-of-the-geopolitical-deal-how-li-ka-shing-turned-a-19-billion-threat-into-an-opportunity-9a08dc00b115",
+    "label": "The Art of the Geopolitical Deal: How Li Ka-shing Turned a $",
+    "priority": "high",
+    "reason": "authored / primary-authored — trust: 3"
+  },
+  {
+    "url": "https://www.bloomberg.com/news/videos/2016-06-29/hong-kong-billionaire-li-ka-shing-an-in-depth-interview",
+    "label": "Watch Hong Kong Billionaire Li Ka-Shing: An In-Depth Intervi",
+    "priority": "high",
+    "reason": "spoken / primary-spoken — trust: 2.5"
+  },
+  {
+    "url": "https://www.scmp.com/video/hong-kong/2137517/how-li-ka-shing-became-hong-kongs-richest-man",
+    "label": "How Li Ka-shing became Hong Kong's richest man",
+    "priority": "high",
+    "reason": "spoken / primary-spoken — trust: 2.5"
+  },
+  {
+    "url": "https://www.reuters.com/article/world/exclusive-in-face-of-criticism-hong-kong-tycoon-li-ka-shing-says-hes-getting-idUSKBN1Y11KW",
+    "label": "Exclusive: In face of criticism, Hong Kong tycoon Li Ka-shin",
+    "priority": "high",
+    "reason": "adversarial / adversarial-critique — trust: 2.2"
+  },
+  {
+    "url": "https://www.amazon.com/Li-Ka-shing-Kongs-Elusive-Billionaire/dp/0195900766",
+    "label": "Li Ka-shing: Hong Kong's Elusive Billionaire - Books - Amazo",
+    "priority": "high",
+    "reason": "behavioral / secondary-profile — trust: 1.5"
+  },
+  {
+    "url": "https://quillandquire.com/review/li-ka-shing-the-biography",
+    "label": "Li-Ka Shing: The Biography - Quill and Quire",
+    "priority": "high",
+    "reason": "behavioral / secondary-profile — trust: 1.5"
+  },
+  {
+    "url": "https://www.amazon.com/Li-Ka-Shing-Biography-Anthony-Chan/dp/0771573855",
+    "label": "Li Ka-Shing : The Biography: Chan, Anthony B. - Amazon.com",
+    "priority": "high",
+    "reason": "behavioral / secondary-profile — trust: 1.5"
+  },
+  {
+    "url": "https://teacup.media/chinahistorypodcastepisodes/ep-13-li-ka-shing",
+    "label": "Ep. 13 | Li Ka-shing — The China History Podcast",
+    "priority": "high",
+    "reason": "spoken / primary-spoken — trust: 2.5"
+  },
+  {
+    "url": "https://bambooinnovator.com/2013/11/30/asias-richest-man-li-ka-shing-has-revealed-his-inner-hopes-and-fears-in-a-dramatic-press-interview",
+    "label": "Asia's richest man Li Ka-Shing has revealed his inner hopes ",
+    "priority": "high",
+    "reason": "spoken / primary-spoken — trust: 2.5"
+  },
+  {
+    "url": "https://www.breakingviews.com/considered-view/china-criticism-makes-even-li-ka-shing-defensive",
+    "label": "China criticism makes even Li Ka-shing defensive | Reuters",
+    "priority": "high",
+    "reason": "adversarial / adversarial-critique — trust: 2.2"
+  },
+  {
+    "url": "https://medium.com/@shazaibdanish4/from-refugee-to-billionaire-the-incredible-journey-dd731e9e529c",
+    "label": "From Refugee to Billionaire: The Incredible Journey - Medium",
+    "priority": "high",
+    "reason": "authored / primary-authored — trust: 3"
+  }
+]

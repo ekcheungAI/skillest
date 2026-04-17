@@ -2,10 +2,11 @@
 
 > 基于 Nuwa-skill extraction framework + Perskill distill_templates 实践经验。
 > 本手册定义从零开始为一个 persona 构建完整 AI agent 技能文件的完整流程。
+> **v2 更新：** Search-driven discovery、era-based deep research、claim 抽取 + 矛盾检测。
 
 ---
 
-## 一、前置检查：Kill-Switch
+## 一，前置检查：Kill-Switch
 
 在开始之前，诚实回答以下问题。任一答案为"否"，请考虑换一个研究对象。
 
@@ -17,107 +18,121 @@
 
 ---
 
-## 二、源类型优先级矩阵
+## 二、源类型优先级矩阵（v2 — 带 Trust Weight）
 
-根据 persona 类型选择适用的 Agent（6 个收集 Agent）：
+根据 persona 类型选择适用的 Agent（6 个收集 Agent）。每个来源都有 trust weight，决定了它在 distillation 阶段的权重：
 
-| Persona 类型 | Agent 1 书籍 | Agent 2 访谈 | Agent 3 社交 DNA | Agent 4 对抗报道 | Agent 5 行为记录 | Agent 6 时代窗口 |
-|---|---|---|---|---|---|---|
-| Crypto/Trading（有社交媒体） | ✅ 高优先 | ✅ | ✅ Twitter/X | ✅ | ✅ | ✅ |
-| 中国企业家（无 Twitter） | ⚠️ 无书籍用 am730/微信 | ✅ | ❌ 无 | ✅ | ⚠️ 无法庭文件 | ✅ |
-| 投资者/金融家 | ✅ | ✅ | ⚠️ 看情况 | ✅ | ✅ | ✅ |
-| 运动员/艺术家 | ⚠️ 传记 | ⚠️ 采访为主 | ❌ | ✅ | ❌ | ⚠️ |
-| 导演/创意人士 | ⚠️ 传记 | ✅ | ❌ | ✅ | ❌ | ✅ |
-
-### 中文人物特殊适配
-
-如果目标人物是中文人物且无 Twitter/X：
-
-| 原框架要求 | 替换方案 |
-|-----------|----------|
-| Agent 1: Published Works（书籍） | 手动获取 20-30 篇代表性文章（am730、公众号等）；标注"无法 API 抓取" |
-| Agent 3: Social DNA（Twitter 量化） | 用采访措辞分析替代（无量化数据，用定性语言模式分析） |
-| Agent 5: Decision Records（法庭文件） | 用新闻报道中的具体决策记录替代 |
+| Layer | 类型 | Trust Weight | 说明 |
+|-------|------|-------------:|------|
+| Authored | 书籍、股东信、散文 | 3.0 | 最高信号密度，人用自己的话说话 |
+| Institutional | 年报、SEC 文件、法院文件 | 2.8 | 在问责制下产生的记录 |
+| Spoken | 访谈、播客、演讲 | 2.5 | 无脚本的推理和决策风格 |
+| Adversarial | 批评、调查、诉讼 | 2.2 | 为 §8 Contradictions 提供基础 |
+| Secondary | 维基百科、传记 | 1.5 | 二手摘要，有参考价值但非一手 |
+| Behavioral | 职业生涯、收购记录 | 1.0 | 行为证明，而非自我叙事 |
 
 ---
 
-## 三、Distill 流程（Step by Step）
+## 三、Distill 流程（Step by Step）（v2）
 
-> **注意：** 有两个工作流。根据 persona 类型选择：
-> - **有 Twitter 的 persona（Crypto/Trading 类）**：使用自动化 pipeline
-> - **无 Twitter 的 persona（中文企业家/HK 创业家）**：使用模板化 scaffold + 手动 distillation
+### Step 0: Search-Driven Discovery（v2 新增）
 
-### Step 0: 预研究 — 确定 persona 类型
-
-在写任何脚本之前，通过 web search 回答：
-
-1. **是否有 Twitter/X 账号？**
-   - 有 → 使用 `--type=TWITTER_CRYPTO`，自动跑 Agent 3（Twitter DNA）
-   - 无 → 使用 `--type=CHINESE_BUSINESS` 或 `--type=HK_ENTREPRENEUR`
-
-2. **主要语言？** → 中文 persona 优先中文源
-3. **所在行业？** → 决定官方文件和行业报道的优先级
-4. **是否有公开演讲习惯？** → 毕业典礼、会议演讲是核心引语来源
-5. **是否有上市公司背景？** → 年报和电话会议记录
-6. **有哪些关键竞争对手？** → 竞争叙事是理解商业逻辑的关键
-
-### Step 1: 脚手架 — 生成研究项目
+不再依赖硬编码 URL 列表。`firecrawl-discovery.ts` 自动搜索 6 个来源层，按 trust weight 排序，输出 coverage gaps 警告。
 
 ```bash
-# 生成研究项目模板（推荐）
+# Preview coverage before running pipeline (dry-run, no files written)
+npx tsx scripts/research/firecrawl-discovery.ts "Warren Buffett" --type=WESTERN_INVESTOR --dry-run
+
+# Discovery + pipeline (default — discovery runs automatically before scraping)
+npx tsx scripts/research/1_collect/pipeline.ts <handle> --deep-research --name="<Full Name>"
+```
+
+### Step 1: 脚手架（v2 更新）
+
+Scaffold 现在生成 era-based deep research 脚本（3-4 个时代查询 + adversarial search queries）。
+
+```bash
 npx tsx scripts/research/0_scaffold/scaffold.ts <id> --type=<TYPE> --name="<Full Name>"
 
-# TYPE 选项：
-#   TWITTER_CRYPTO    有活跃 Twitter 的 crypto/trading 人设
-#   CHINESE_BUSINESS   无 Twitter 的中文人物企业家
-#   HK_ENTREPRENEUR   香港创业家（中文 + 英文媒体）
-#   WESTERN_INVESTOR   西方投资人（英文为主）
+# TYPE: TWITTER_CRYPTO | CHINESE_BUSINESS | HK_ENTREPRENEUR | WESTERN_INVESTOR
 
 # 示例：
 npx tsx scripts/research/0_scaffold/scaffold.ts warren-buffett --type=WESTERN_INVESTOR --name="Warren Buffett"
 ```
 
 此命令生成：
-- `scripts/research/output/{id}/PLAN.md` — 已填好的 Distill Plan
-- `scripts/research/output/{id}/SKILL_TEMPLATE.md` — SKILL.md 格式模板
-- `scripts/research/output/{id}/triple-verify-log.md` — 空白验证日志
-- `scripts/research/output/{id}/validation-log.md` — 空白验证测试
-- `skills/{id}/research/` — Git 追踪的最终档案目录
-- `scripts/research/personas-deep-research/${id}-deep.ts` — persona-specific 深度研究脚本
+- `output/{id}/PLAN.md` — 带 era-based 研究计划（v2）
+- `output/{id}/SKILL_TEMPLATE.md` — SKILL.md 格式模板
+- `output/{id}/triple-verify-log.md` + `validation-log.md`
+- `skills/{id}/research/` — research archive
+- `personas-deep-research/{id}-deep.ts` — **v2：3阶段 deep research 脚本**
 
-### Step 2: 数据收集 — 运行 pipeline
+### Step 2: 数据收集（v2 更新 — 默认包含 Discovery）
 
 ```bash
-# 有 Twitter 的 persona
-npx tsx scripts/research/1_collect/pipeline.ts <handle> --count=500 --deep-research --type=TWITTER_CRYPTO
+# 有 Twitter 的 persona（discovery + tweets + web + deep research 全开）
+npx tsx scripts/research/1_collect/pipeline.ts <handle> --count=500 --deep-research --type=TWITTER_CRYPTO --name="<Full Name>"
 
-# 无 Twitter 的 persona（中文人物）
-npx tsx scripts/research/1_collect/pipeline.ts none --skip-tweets --deep-research --type=HK_ENTREPRENEUR
+# 无 Twitter 的 persona
+npx tsx scripts/research/1_collect/pipeline.ts none --skip-tweets --deep-research --type=HK_ENTREPRENEUR --name="Jack Ma"
 
-# 自定义抓取（手动指定 URL）
-npx tsx scripts/research/firecrawl-research.ts https://zh.wikipedia.org/wiki/施永青
+# 跳过 discovery（使用旧版硬编码 URL）
+npx tsx scripts/research/1_collect/pipeline.ts <handle> --skip-discovery
 ```
 
-pipeline 输出到 `scripts/research/output/{id}/`：
-- `00-source-catalog.md` — 所有抓取来源
-- `01-tweet-statistics.md` — Twitter 量化分析（自动生成，含语言检测、emoji 统计）
-- `PLAN.md` — 已生成的 Plan
+pipeline v2 输出到 `output/{id}/`：
+- `00-discovery-report.md` — Discovery 报告（6 层覆盖 + coverage gaps）
+- `00-source-catalog.md` — 来源目录（带 trust weight 和 layer 分类）
+- `01-tweet-statistics.md` — Twitter 量化分析
+- `PLAN.md` — 带 era-based 研究计划
 
-### Step 3: 手动蒸馏（关键步骤）
+### Step 3: Era-Based Deep Research（v2 新增）
 
-> 这部分需要 LLM 辅助，不能自动化。
+Scaffold 生成的高质量 deep research 脚本，替代了旧的宽泛 topic 查询。
+
+```bash
+npx tsx scripts/research/personas-deep-research/<id>-deep.ts
+```
+
+三阶段：
+1. **Discovery**（重复验证）— 6 层来源发现
+2. **Era-segmented deep research** — 按时代分割研究，防止时间线混淆
+3. **Adversarial + decision-record search** — 对抗性报道和决策记录查询
+
+### Step 4: Claim 抽取 + 矛盾检测（v2 新增）
+
+从所有已抓取页面自动抽取结构化 claims 并检测矛盾。
+
+```bash
+# Claim 抽取 + 矛盾检测
+npx tsx scripts/research/2_distill/distill.ts <id> --agent=claims
+
+# 运行所有 distillation agents（包括 claim 抽取）
+npx tsx scripts/research/2_distill/distill.ts <id> --agent=all
+```
+
+输出 `07-claims-contradictions.md`：
+- **Claims by Layer**：按 authored/spoken/institutional/adversarial 分组
+- **Claims by Type**：direct-quote / decision-record / value-statement
+- **Auto-detected Contradictions**：pattern-based 价值-行为矛盾检测
+- **Fill-in Template**：未被自动检测的矛盾的补充模板
+
+### Step 5: 手动蒸馏（关键步骤）
+
+这部分需要 LLM 辅助，不能完全自动化。Claim 抽取的结果是人工 distillation 的原材料。
 
 1. **读取所有研究文件**，建立直觉（不要边读边记）
-2. **列出 15–25 个候选思维模式** → 填入 `triple-verify-log.md`
-3. **运行三测验证**，每个候选都要通过 3 个测试
-4. **撰写 SKILL.md §4**（Mental Models）— 只放入通过的模型
-5. **撰写 §5**（Heuristics）— 被降级的候选放在这里
-6. **撰写 §6**（Expression DNA）— 从 `01-tweet-statistics.md` 复制数字
-7. **撰写 §8**（Contradictions）— 必须有 3–6 条
-8. **撰写 §7**（Timeline）— 用时代边界标记行为变化
-9. **填其余章节**（§1, §2, §3, §9, §10, §11）
+2. **审查 `07-claims-contradictions.md`** — 补充 claim 证据，检查自动检测的矛盾
+3. **列出 15–25 个候选思维模式** → 填入 `triple-verify-log.md`
+4. **运行三测验证**，每个候选都要通过 3 个测试
+5. **撰写 SKILL.md §4**（Mental Models）— 只放入通过的模型
+6. **撰写 §5**（Heuristics）— 被降级的候选放在这里
+7. **撰写 §6**（Expression DNA）— 从 `01-tweet-statistics.md` 复制数字
+8. **撰写 §8**（Contradictions）— 必须有 3–6 条，使用 `07-claims-contradictions.md` 中的素材
+9. **撰写 §7**（Timeline）— 用时代边界标记行为变化
+10. **填其余章节**（§1, §2, §3, §9, §10, §11）
 
-### Step 4: 验证
+### Step 6: 验证
 
 ```bash
 npx tsx scripts/research/3_validate/validation-runner.ts <id>
@@ -128,7 +143,7 @@ npx tsx scripts/research/3_validate/validation-runner.ts <id>
 - 如果 Part A < 2/3 或 Part B 失败，输出错误并阻止 ship
 - 生成 `skills/{id}/validation-report.md`
 
-### Step 5: 导出并提交
+### Step 7: 导出并提交
 
 ```bash
 # 导出 skills 文件（会自动识别有 research 的 persona 并集成）
@@ -141,87 +156,22 @@ git push origin main
 ```
 
 **导出脚本的 research 集成：**
-- 如果 `skills/{id}/research/` 存在 → 导出的 SKILL.md frontmatter 标注 `research_depth: DISTILLED`，Promotion Ledger 和 Contradictions 会自动织入
-- 如果没有 research/ → 回退到 generic prompt 生成（等同于原有行为）
+- 如果 `skills/{id}/research/` 存在 → 导出的 SKILL.md frontmatter 标注 `research_depth: DISTILLED`
+- 如果没有 research/ → 回退到 generic prompt 生成
 
-### Step 6: LLM 蒸馏格式标准
+### Step 8: LLM 蒸馏格式标准
 
-#### 6.1 思维框架文档格式
+#### 8.1 思维框架文档格式
 
-每个框架必须有：
+每个框架必须有：起源、核心内容、使用条件、操作步骤、示例、边界与诚实限制。
 
-```markdown
-### 框架名称
+#### 8.2 决策日志格式
 
-**起源**
-- {框架形成的具体经历}（三个以内的关键节点）
+每个决策案例必须有：背景、选项识别、最终选择及理由、结果、复盘、元教训。
 
-**核心内容**
-- {一句话概括}
+#### 8.3 词汇模式文档格式
 
-**使用条件**（触发场景）
-- {在什么情况下应该调用此框架}
-
-**操作步骤**
-1. {第一步}
-2. {第二步}
-3. {第三步}
-
-**示例**（worked example）
-{具体的真实案例，说明框架如何应用}
-
-**边界与诚实限制**
-- {框架不适用的场景}
-- {当事人本人对此框架的诚实评估}
-```
-
-#### 6.2 决策日志格式
-
-每个决策案例必须有：
-
-```markdown
-## 案例：{决策名称}
-
-**背景**
-{当时的情况}
-
-**选项识别**
-- A: {选项A及其逻辑}
-- B: {选项B及其逻辑}
-- C: {选项C及其逻辑}
-
-**最终选择及理由**
-{选择的决策及背后的逻辑}
-
-**结果**
-{决策后的结果}
-
-**复盘：框架应用**
-{这个案例体现了哪些框架？框架在这个案例中如何运作？}
-
-**元教训**
-{从这个决策中学到的可迁移教训}
-```
-
-#### 6.3 词汇模式文档格式
-
-```markdown
-## 词汇模式分析
-
-### 高频核心词汇
-| 词汇 | 频次 | 使用场景 | 含义 |
-|---|---|---|---|
-| {词1} | {频次} | 场景描述 | 含义解读 |
-
-### 签名隐喻
-| 隐喻 | 出现场景 | 含义 |
-|---|---|---|
-| {隐喻1} | {场景} | {解读} |
-
-### 两种沟通语域
-1. **公开仪式语域**（毕业典礼、正式演讲）：{特点描述}
-2. **内部操作语域**（采访、年报评论）：{特点描述}
-```
+高频核心词汇表、签名隐喻、两种沟通语域（公开仪式语域 vs 内部操作语域）。
 
 ---
 
@@ -229,133 +179,62 @@ git push origin main
 
 ### 三个测试
 
-**Test 1 — 跨域再现**
-同一框架必须在 ≥2 个不同领域出现（商业决策 + 个人哲学 + 投资 + 创意工作等）。一个领域 = 巧合。两个 = 模式。三个 += 操作系统。
-
-**Test 2 — 生成能力**
-该模型必须能让你预测他们在从未公开评论过的问题上的立场。如果唯一知道他们想法的方式是直接引用，那这不是模型，而是流行语。
-
-**Test 3 — 非显而易见 / 专属性**
-不是任何聪明 operator 都会想到的东西。模型必须揭示一种独特的视角，深思熟虑的竞争对手会不同意。
+**Test 1 — 跨域再现**：同一框架必须在 ≥2 个不同领域出现。
+**Test 2 — 生成能力**：该模型必须能预测他们在从未公开评论过的问题上的立场。
+**Test 3 — 非显而易见 / 专属性**：不是任何聪明 operator 都会想到的东西。
 
 ### 判决规则
 
-- ✅ 通过 3/3 → Mental Model（包含在 SKILL.md §4，标注 `(N源交叉)` 标签）
-- ⚠️ 通过 2/3 → Decision Heuristic（包含在 SKILL.md §5 作为单行描述 + 案例）
-- ⚠️ 通过 1/3 → Color detail（可能包含在 Identity Card §3 或 Timeline §7，不是模型）
+- ✅ 通过 3/3 → Mental Model（包含在 SKILL.md §4）
+- ⚠️ 通过 2/3 → Decision Heuristic（包含在 SKILL.md §5）
+- ⚠️ 通过 1/3 → Color detail（Identity Card §3 或 Timeline §7）
 - ❌ 通过 0/3 → 完全删除
-
-### 候选模型日志格式
-
-|| # | 候选模型 | 领域1证据 | 领域2证据 | 领域3证据 | T1通过？ | 新型预测启用 | T2通过？ | 谁会不同意？ | T3通过？ | 判决 |
-|---|-----|----------------|-----------|-----------|-----------|:--------:|------------------|:--------:|----------------|:--------:|---------|
-|| 1 | {one-line name} | > "{quote}" — {source, year} | > "{quote}" — {source, year} | {behavioral pattern + source} | ☐ | {novel prediction} | ☐ | {named counter-operator} | ☐ | Model / Heuristic / Cut |
-
-目标：15-25 个候选 → 最终 3-7 个 Mental Model + 5-10 个 Heuristic。
 
 ---
 
 ## 五、SKILL.md 写作标准
 
-每个 SKILL.md 必须包含 11 个章节：
-
-| 章节 | 内容 | 必需 |
-|-------|------|------|
-| §1 Role-Play Rules | 角色扮演规则（最重要） | ✅ 必需 |
-| §2 Answer Workflow | 回答工作流（Agentic Protocol） | ✅ 必需 |
-| §3 Identity Card | 身份卡（第一人称叙事） | ✅ 必需 |
-| §4 Core Mental Models | 核心心智模型（3-7个） | ✅ 必需 |
-| §5 Decision Heuristics | 决策启发式（5-10条） | ✅ 必需 |
-| §6 Expression DNA | 表达 DNA（数据驱动） | ✅ 必需 |
-| §7 Timeline | 时间线（最少3个时代，目标是5个） | ✅ 必需 |
-| §8 Contradictions | 矛盾（必需 — 3-6条） | ✅ 必需 |
-| §9 Values & Anti-patterns | 价值观与反模式 | ✅ 必需 |
-| §10 Knowledge Lineage | 知识谱系 | ✅ 必需 |
-| §11 Honest Boundaries | 诚实边界 | ✅ 必需 |
-
-### 禁止的反模式
-
-以下内容**不应**作为心智模型：
-- 通用美德 — "努力工作"、"专注"、"长期思考" → 删除
-- 单域行为 — 仅在一个领域观察到的行为 → 最多作为启发式
-- 事后叙事 — 当事人讲述的过去胜利故事，不能预测未来行动 → 仅作为颜色
-- 无行为证明的价值观声明 → 删除
+每个 SKILL.md 必须包含 11 个章节：§1 Role-Play Rules、§2 Answer Workflow、§3 Identity Card、§4 Core Mental Models、§5 Decision Heuristics、§6 Expression DNA、§7 Timeline、§8 Contradictions（必需 3–6 条）、§9 Values & Anti-patterns、§10 Knowledge Lineage、§11 Honest Boundaries。
 
 ---
 
-## 七、验证测试（Harness）
+## 六、验证测试（Harness）
 
 ### 3+1 协议
 
-**Part A — 三个已知声明测试（方向一致性）**
-
-选取三个 persona 公开说过的话，但**不是 SKILL.md 中直接引用**的。隐藏真实答案，用技能回答该问题所回应的问题。对比方向。
-
-通过标准：技能的回答与真实回答指向**同一方向**。措辞不重要——方向和推理模式重要。
-
-阈值：3 个中必须有 2 个方向匹配。少于 2 个 → SKILL.md 有问题。重新审视心智模型和启发式。
-
-**Part B — 一个全新问题测试（校准不确定性）**
-
-在一个 persona **没有公开记录**的主题上提出问题。
-
-通过标准：技能以他们的声音回应，应用相关心智模型，并且**明确承认不确定性**。自信捏造 = 失败。
+**Part A — 三个已知声明测试**：选取三个 persona 公开说过的话但不是 SKILL.md 直接引用的，隐藏答案用技能回答，对比方向。阈值：2 of 3。
+**Part B — 一个全新问题测试**：在 persona 没有公开记录的主题上提问，技能必须承认不确定性。自信捏造 = 失败。
 
 ---
 
-## 八、涉及的文件模板
-
-每个 persona 的 skills 文件夹结构：
-
-```
-skills/{persona-slug}/
-├── SKILL.md               ← 11章节格式（必需）
-├── PROFILE.md             ← 快速概览
-├── README.md              ← 安装说明
-├── validation-log.md      ← 验证测试日志（distill_templates 复制）
-└── research/
-    ├── README.md          ← 研究档案说明
-    ├── 01-{topic}.md     ← 研究文档（按需要编号）
-    ├── ...
-    ├── triple-verify-log.md  ← 三测验证日志
-    ├── raw-extract.json   ← 原始抓取数据
-    └── sources.md         ← 完整来源清单
-```
-
----
-
-## 九、Credit Budget 参考
+## 七、Credit Budget 参考（v2 更新）
 
 | 工具 | 典型使用量 | 成本估算 |
 |------|-----------|----------|
-| TwitterAPI.io | 500-20,000 条推文 × 1-3 个账号 | ~$2-8 |
-| Firecrawl `/scrape` | 40-80 个长篇 URL | ~$2-4 |
-| Firecrawl `/deep-research` | 5 次运行（每个时代1次） | ~$3-6 |
-| Firecrawl `/search` | 10-20 个对抗性查询 | ~$1-2 |
+| TwitterAPI.io | 500-20,000 条推文 | ~$2-8 |
+| Firecrawl `/search` (discovery) | 15-20 个查询 | ~$1-2 |
+| Firecrawl `/scrape` | 15-25 个优先级 URL | ~$2-4 |
+| Firecrawl `/deep-research` | 3-5 次（era 查询） | ~$3-6 |
 | **总预算目标** | | **$8-20 per persona** |
 
-如果花费超过 $25，就是过度收集了。三测验证（TRIPLE_VERIFY.md）是解药，不是更多来源。
+如果花费超过 $25，就是过度收集了。三测验证是解药，不是更多来源。
 
 ---
 
-## 十、研究截止日期管理
+## 八、研究截止日期管理
 
-每个 persona 必须在 §11 Honest Boundaries 和 SKILL.md frontmatter 中标注：
-
-- `data_freshness`: 最后更新日期
-- `nextUpdateDue`: 下次更新日期
-- `Research cutoff`: 研究截止日期
+每个 persona 必须在 §11 Honest Boundaries 和 SKILL.md frontmatter 中标注：`data_freshness`、`nextUpdateDue`、`research_cutoff`。
 
 建议：活跃人物每 3 个月重新验证；安静人物每 12 个月重新验证。
 
 ---
 
-## 十一、参考案例
+## 九、参考案例
 
-- **Justin Sun**: `justin-sun-perspective/SKILL.md` — 完整的 distill_templates 格式参考，包含完整的 Twitter DNA 和 triple-verify 日志
-- **Li Ka-shing**: `li-ka-shing/SKILL.md` — 无 Twitter 但有完整书籍章节的参考
-- **施永青**: `shi-yongqing/SKILL.md` — 无 Twitter + 无书籍 + 中文人物 的完整适配参考
+- **Warren Buffett**: `warren-buffett-deep.ts` — Era-based deep research 的参考实现
+- **Li Ka-shing**: 无 Twitter，HK 创业家参考
+- **施永青**: 无 Twitter + 无书籍 + 中文人物 的完整适配参考
 
 ---
 
-*最后更新：2026-04-14*
+*最后更新：2026-04-16 — v2 pipeline upgrade*

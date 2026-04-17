@@ -8,7 +8,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { Link } from "wouter";
 import {
-  Search, X, Layers, Copy, Brain,
+  Search, X, Layers, Copy, Brain, Star,
   Globe, TrendingUp, Users, Zap, BookOpen,
   CheckCircle2, ArrowRight
 } from "lucide-react";
@@ -240,8 +240,8 @@ function PersonaCard({
               fontFamily: "Inter, sans-serif",
             }}
           >
-            {isSelected ? <CheckCircle2 size={10} /> : <Layers size={10} />}
-            {isSelected ? "Added" : "Add"}
+            {isSelected ? <Star size={10} /> : <Star size={10} />}
+            {isSelected ? "Starred" : "Star"}
           </button>
         </div>
       </div>
@@ -300,7 +300,7 @@ When responding, blend the above personas proportionally:
 - Prioritize the framework most relevant to the question type (technical → lean on the most technical persona; negotiation → lean on the most strategic)`;
 
     navigator.clipboard.writeText(combined);
-    toast.success(`Composite stack prompt for ${selectedPersonas.length} personas copied!`);
+    toast.success(`Composite prompt for ${selectedPersonas.length} personas copied!`);
   }, [selectedPersonas]);
 
   if (selected.length === 0) return null;
@@ -317,7 +317,7 @@ When responding, blend the above personas proportionally:
                   <Layers size={12} className="text-white" />
                 </div>
                 <span className="text-[12px] font-semibold text-gray-900" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
-                  {selected.length} in stack
+                  {selected.length} starred
                 </span>
                 <span className="text-[10px] text-gray-500" style={{ fontFamily: "Inter, sans-serif" }}>
                   {selectedPersonas.map((p) => p.name.split(" ")[0]).join(" · ")}
@@ -346,9 +346,9 @@ When responding, blend the above personas proportionally:
               {/* Expanded mobile content */}
               <div className="flex items-center justify-between py-3 border-b border-gray-100">
                 <div className="flex items-center gap-2">
-                  <Layers size={13} className="text-gray-700" />
+                  <Star size={13} className="text-gray-700" />
                   <span className="text-[13px] font-semibold text-gray-900" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
-                    Agent Stack
+                    Starred Personas
                   </span>
                   <span className="w-5 h-5 rounded-full bg-gray-900 text-white text-[10px] font-bold flex items-center justify-center">
                     {selected.length}
@@ -387,7 +387,7 @@ When responding, blend the above personas proportionally:
                   <p className="text-[10px] font-mono text-gray-600 leading-relaxed whitespace-pre-wrap">
                     {selectedPersonas.length === 1
                       ? selectedPersonas[0].aiPersonaPrompt.slice(0, 500) + "..."
-                      : `Composite stack: ${selectedPersonas.map((p) => p.name).join(" + ")} — ${selectedPersonas.length} thinking styles combined.`}
+                      : `Starred personas: ${selectedPersonas.map((p) => p.name).join(" + ")} — ${selectedPersonas.length} thinking styles combined.`}
                   </p>
                 </div>
               </div>
@@ -416,9 +416,9 @@ When responding, blend the above personas proportionally:
           <div className="flex items-center justify-between py-3">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <Layers size={14} className="text-gray-700" />
+                <Star size={14} className="text-gray-700" />
                 <span className="text-[13px] font-semibold text-gray-900" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
-                  Agent Stack
+                  Starred Personas
                 </span>
                 <span className="w-5 h-5 rounded-full bg-gray-900 text-white text-[10px] font-bold flex items-center justify-center">
                   {selected.length}
@@ -485,7 +485,7 @@ When responding, blend the above personas proportionally:
                 <p className="text-[10px] font-mono text-gray-600 leading-relaxed whitespace-pre-wrap">
                   {selectedPersonas.length === 1
                     ? selectedPersonas[0].aiPersonaPrompt.slice(0, 500) + "..."
-                    : `Composite stack: ${selectedPersonas.map((p) => p.name).join(" + ")} — ${selectedPersonas.length} thinking styles combined into a single system prompt.`}
+                    : `Starred personas: ${selectedPersonas.map((p) => p.name).join(" + ")} — ${selectedPersonas.length} thinking styles combined into a single system prompt.`}
                 </p>
               </div>
             </div>
@@ -567,12 +567,12 @@ export default function Home() {
 
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-40 bg-white/95 border-b border-gray-200" style={{ backdropFilter: "blur(8px)", boxShadow: "0 1px 0 rgba(0,0,0,0.04)" }}>
-        <div className="max-w-screen-xl mx-auto px-5 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-gray-900 flex items-center justify-center">
-              <Brain size={14} className="text-white" />
+        <div className="max-w-screen-xl mx-auto px-4 h-12 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-lg bg-gray-900 flex items-center justify-center">
+              <Brain size={12} className="text-white" />
             </div>
-            <span className="text-[15px] font-semibold text-gray-900" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
+            <span className="text-[14px] font-semibold text-gray-900" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
               Perskill
             </span>
             <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 hidden sm:block">
@@ -583,16 +583,10 @@ export default function Home() {
             <span className="text-[12px] text-gray-400 hidden md:block" style={{ fontFamily: "Inter, sans-serif" }}>
               {personas.length} personas · Free & open
             </span>
-            <Link href="/match">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-300 bg-amber-50 text-amber-800 text-[11.5px] font-semibold hover:bg-amber-100 transition-colors" style={{ fontFamily: "Inter, sans-serif" }}>
-                <Zap size={11} className="text-amber-500" />
-                Find My Match
-              </div>
-            </Link>
             {selectedStack.length > 0 && (
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-900 text-white text-[12px] font-medium" style={{ fontFamily: "Inter, sans-serif" }}>
-                <Layers size={12} />
-                {selectedStack.length} in stack
+                <Star size={12} />
+                {selectedStack.length} starred
               </div>
             )}
           </div>
@@ -601,27 +595,27 @@ export default function Home() {
 
       {/* ── Hero Banner — compact two-column ── */}
       <div className="border-b border-gray-200/60" style={{ background: "linear-gradient(135deg, #FAFAF8 0%, #F5F3EE 60%, #EEF0F5 100%)" }}>
-        <div className="max-w-screen-xl mx-auto px-5 py-6">
-          <div className="flex flex-col lg:flex-row gap-6 items-center">
+        <div className="max-w-screen-xl mx-auto px-4 py-4">
+          <div className="flex flex-col lg:flex-row gap-4 items-center">
 
             {/* Left: headline */}
             <div className="flex-1 min-w-0">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-gray-600 text-[10px] font-semibold mb-2.5 border border-gray-200 bg-white/70" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "0.05em" }}>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-gray-600 text-[10px] font-semibold mb-2 border border-gray-200 bg-white/70" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "0.05em" }}>
                 <Zap size={9} className="text-amber-500" />
                 DEEP-RESEARCH AI PERSONA PROFILES
               </div>
-              <h1 className="text-[26px] sm:text-[32px] font-bold text-gray-900 leading-[1.1] mb-2" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
+              <h1 className="text-[22px] sm:text-[28px] font-bold text-gray-900 leading-[1.1] mb-1.5" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
                 Think Like the <em>World's Greatest</em> Minds
               </h1>
-              <p className="text-[12.5px] text-gray-500 leading-relaxed mb-3 max-w-md" style={{ fontFamily: "Inter, sans-serif" }}>
+              <p className="text-[11.5px] text-gray-500 leading-relaxed mb-2.5 max-w-md" style={{ fontFamily: "Inter, sans-serif" }}>
                 Deep-research profiles of iconic leaders — thinking frameworks, working style, and AI-ready system prompts. One click to install into any LLM agent.
               </p>
-              <div className="flex flex-wrap gap-4 text-[11.5px]" style={{ fontFamily: "Inter, sans-serif" }}>
+              <div className="flex flex-wrap gap-4 text-[11px]" style={{ fontFamily: "Inter, sans-serif" }}>
                 {[
-                  { icon: <Users size={11} />, value: `${personas.length}`, label: "Personas" },
-                  { icon: <Brain size={11} />, value: "9+", label: "Sections each" },
-                  { icon: <Zap size={11} />, value: "100%", label: "Prompt ready" },
-                  { icon: <TrendingUp size={11} />, value: "Weekly", label: "Updates" },
+                  { icon: <Users size={10} />, value: `${personas.length}`, label: "Personas" },
+                  { icon: <Brain size={10} />, value: "9+", label: "Sections each" },
+                  { icon: <Zap size={10} />, value: "100%", label: "Prompt ready" },
+                  { icon: <TrendingUp size={10} />, value: "Weekly", label: "Updates" },
                 ].map((stat) => (
                   <div key={stat.label} className="flex items-center gap-1 text-gray-600">
                     <span className="text-gray-400">{stat.icon}</span>
@@ -640,7 +634,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row lg:flex-col gap-2">
                 {[
                   { step: "01", title: "Browse & Learn",      desc: "Explore thinking frameworks & working style",     icon: <BookOpen size={11} />, color: "#0EA5E9" },
-                  { step: "02", title: "Build Your Stack",    desc: "Add personas for a composite AI thinking style",  icon: <Layers size={11} />,   color: "#8B5CF6" },
+                  { step: "02", title: "Star Personas",    desc: "Star personas you want to install in your AI agent",  icon: <Star size={11} />,   color: "#8B5CF6" },
                   { step: "03", title: "Install in Agent",    desc: "Copy prompt → paste into ChatGPT or Claude",     icon: <Copy size={11} />,     color: "#10B981" },
                 ].map((item) => (
                   <div key={item.step} className="flex items-center gap-2.5 px-3 py-2 bg-white rounded-lg border border-gray-200 hover:border-gray-300 transition-colors min-w-[240px]">
@@ -656,22 +650,6 @@ export default function Home() {
                     </div>
                   </div>
                 ))}
-                {/* Persona Match CTA */}
-                <Link href="/match">
-                  <div className="flex items-center gap-2.5 px-3 py-2 rounded-lg border-2 border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 transition-colors min-w-[240px] cursor-pointer">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center bg-amber-500">
-                      <Zap size={11} className="text-white" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[8px] font-mono font-bold text-amber-500">NEW</span>
-                        <span className="text-[11.5px] font-semibold text-gray-900" style={{ fontFamily: "Fraunces, Georgia, serif" }}>Find My Match</span>
-                      </div>
-                      <p className="text-[10px] text-amber-700 leading-tight" style={{ fontFamily: "Inter, sans-serif" }}>Describe your style → get your ideal agent stack</p>
-                    </div>
-                    <ArrowRight size={11} className="text-amber-500 flex-shrink-0" />
-                  </div>
-                </Link>
               </div>
             </div>
           </div>
@@ -703,6 +681,24 @@ export default function Home() {
                   <X size={11} />
                 </button>
               )}
+            </div>
+
+            {/* Prompt Level */}
+            <div>
+              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2 px-1" style={{ fontFamily: "Inter, sans-serif" }}>Prompt Level</p>
+              <button
+                onClick={() => setIsEnhancedOnly(!isEnhancedOnly)}
+                className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[11.5px] transition-colors ${isEnhancedOnly ? "bg-gray-900 text-white" : "text-gray-600 hover:bg-gray-100"}`}
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full" style={{ background: "#A78BFA" }} />
+                  Enhanced Prompts
+                </span>
+                <span className={`text-[10px] font-mono tabular-nums ${isEnhancedOnly ? "text-gray-300" : "text-gray-400"}`}>
+                  {personas.filter((p) => p.promptTier === "UPGRADED").length}
+                </span>
+              </button>
             </div>
 
             {/* Categories */}
@@ -744,24 +740,6 @@ export default function Home() {
                   </button>
                 ))}
               </div>
-            </div>
-
-            {/* Enhanced Prompts toggle */}
-            <div>
-              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2 px-1" style={{ fontFamily: "Inter, sans-serif" }}>Prompt Level</p>
-              <button
-                onClick={() => setIsEnhancedOnly(!isEnhancedOnly)}
-                className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[11.5px] transition-colors ${isEnhancedOnly ? "bg-gray-900 text-white" : "text-gray-600 hover:bg-gray-100"}`}
-                style={{ fontFamily: "Inter, sans-serif" }}
-              >
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full" style={{ background: "#A78BFA" }} />
-                  Enhanced Prompts
-                </span>
-                <span className={`text-[10px] font-mono tabular-nums ${isEnhancedOnly ? "text-gray-300" : "text-gray-400"}`}>
-                  {personas.filter((p) => p.promptTier === "UPGRADED").length}
-                </span>
-              </button>
             </div>
 
             {/* Sort */}
@@ -811,6 +789,18 @@ export default function Home() {
               />
             </div>
 
+            {/* Enhanced Prompts pill */}
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+              <button
+                onClick={() => setIsEnhancedOnly(!isEnhancedOnly)}
+                className={`flex-shrink-0 text-[11px] font-medium px-3 py-1.5 rounded-full border transition-colors ${isEnhancedOnly ? "text-white border-transparent" : "bg-white text-gray-600 border-gray-200"}`}
+                style={{ fontFamily: "Inter, sans-serif", background: isEnhancedOnly ? "#7C3AED" : undefined }}
+              >
+                <span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: isEnhancedOnly ? "rgba(255,255,255,0.8)" : "#A78BFA" }} />
+                Enhanced Prompts
+              </button>
+            </div>
+
             {/* Category pills — horizontal scroll */}
             <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
               {allCategories.map((cat) => (
@@ -823,18 +813,6 @@ export default function Home() {
                   {CATEGORY_CONFIG[cat]?.icon} {cat}
                 </button>
               ))}
-            </div>
-
-            {/* Enhanced Prompts pill */}
-            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-              <button
-                onClick={() => setIsEnhancedOnly(!isEnhancedOnly)}
-                className={`flex-shrink-0 text-[11px] font-medium px-3 py-1.5 rounded-full border transition-colors ${isEnhancedOnly ? "text-white border-transparent" : "bg-white text-gray-600 border-gray-200"}`}
-                style={{ fontFamily: "Inter, sans-serif", background: isEnhancedOnly ? "#7C3AED" : undefined }}
-              >
-                <span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: isEnhancedOnly ? "rgba(255,255,255,0.8)" : "#A78BFA" }} />
-                Enhanced Prompts
-              </button>
             </div>
 
             {/* Region pills — horizontal scroll */}
@@ -860,7 +838,7 @@ export default function Home() {
               </h2>
               <p className="text-[11.5px] text-gray-500 mt-0.5" style={{ fontFamily: "Inter, sans-serif" }}>
                 {filteredPersonas.length} {filteredPersonas.length === 1 ? "persona" : "personas"}
-                {selectedStack.length > 0 && ` · ${selectedStack.length} in stack`}
+                {selectedStack.length > 0 && ` · ${selectedStack.length} starred`}
               </p>
             </div>
             {selectedStack.length > 0 && (
@@ -869,7 +847,7 @@ export default function Home() {
                 className="text-[11px] text-gray-500 hover:text-gray-700 flex items-center gap-1"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
-                <X size={10} /> Clear stack
+                <X size={10} /> Clear starred
               </button>
             )}
             {(isEnhancedOnly || activeRegion !== "All Regions" || hasFilters) && (

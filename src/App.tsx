@@ -7,8 +7,6 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Home from "@/pages/Home";
 import PersonaDetail from "@/pages/PersonaDetail";
-import PersonaMatch from "@/pages/PersonaMatch";
-
 /** Scrolls window to top on every route change */
 function ScrollToTop() {
   const [location] = useLocation();
@@ -25,7 +23,6 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/persona/:id" component={PersonaDetail} />
-        <Route path="/match" component={PersonaMatch} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>
