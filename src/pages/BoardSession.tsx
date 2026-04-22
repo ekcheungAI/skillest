@@ -49,6 +49,21 @@ const STAGES: { key: Stage; label: string; icon: React.ReactNode }[] = [
   { key: "output", label: "Output", icon: <FileText size={13} /> },
 ];
 
+const STAGE_NAMES = [
+  "initial position",
+  "position",
+  "key argument",
+  "argument",
+  "challenge",
+  "rebuttal",
+  "rebut",
+  "what would change",
+  "change my mind",
+  "final",
+  "recommendation",
+  "synthesis",
+];
+
 function simulateDiscussionTurns(
   session: BoardSession
 ): Omit<DiscussionTurn, "id" | "createdAt">[] {
@@ -305,14 +320,18 @@ export default function BoardSession() {
         return;
       }
 
+      const lines = fullText.split("\n").filter((l) => l.trim());
+
+      let currentMemberIdx = 0;
+      let currentStageIdx = 0;
+
       for (const line of lines) {
         if (!line.trim()) continue;
 
-        const speakerMatch = line.match(/^\[([^\]]+)\]/);
-        const safeMember = session.members[currentMemberIdx % session.members.length];
-        let memberId = safeMember?.id ?? session.members[0].id;
+        let memberId = session.members[0].id;
         let stage: DiscussionStage = stageOrder[Math.min(currentStageIdx, stageOrder.length - 1)];
 
+        const speakerMatch = line.match(/^\[([^\]]+)\]/);
         if (speakerMatch) {
           const speakerName = speakerMatch[1].toLowerCase();
           const matched = session.members.find((m) => {
