@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Search, Plus, X, Info, Sparkles, ChevronDown } from "lucide-react";
 import type { Persona, PersonaCategory } from "@/lib/personas";
 import type { BoardMember } from "@/lib/boards";
+import { CATEGORY_COLORS } from "@/lib/board-design";
 
 interface BoardAssemblyProps {
   allPersonas: Persona[];
@@ -18,35 +19,6 @@ function getInitials(name: string): string {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-const CATEGORY_COLORS: Record<string, string> = {
-  Tech: "#0EA5E9",
-  Business: "#F59E0B",
-  Entrepreneurship: "#8B5CF6",
-  Finance: "#10B981",
-  Politics: "#EF4444",
-  Science: "#06B6D4",
-  Film: "#EC4899",
-  Investing: "#84CC16",
-  Trading: "#E11D48",
-  Crypto: "#F7931A",
-  Marketing: "#8B5CF6",
-  Philosophy: "#A78BFA",
-  Military: "#6B7280",
-  Basketball: "#F97316",
-  Football: "#16A34A",
-  Soccer: "#0EA5E9",
-  Tennis: "#84CC16",
-  Golf: "#10B981",
-  Swimming: "#06B6D4",
-  TrackAndField: "#EF4444",
-  AutoRacing: "#DC2626",
-  Baseball: "#F59E0B",
-  MMA: "#7C3AED",
-  Boxing: "#EC4899",
-  Gymnastics: "#EC4899",
-  Hockey: "#3B82F6",
-};
-
 function PersonaChip({
   member,
   persona,
@@ -61,8 +33,8 @@ function PersonaChip({
   const color = persona.accentColor || "#6B7280";
   return (
     <div
-      className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2 shadow-sm hover:shadow-md transition-shadow"
-      style={{ borderLeft: `3px solid ${color}` }}
+      className="flex items-center gap-2 bg-white border border-gray-200 rounded-[14px] px-3 py-2 shadow-sm hover:shadow-md transition-shadow"
+      style={{ borderLeft: `4px solid ${color}` }}
     >
       <div
         className="w-7 h-7 rounded-md flex items-center justify-center text-white font-bold text-[10px] flex-shrink-0"
@@ -74,11 +46,11 @@ function PersonaChip({
         {getInitials(persona.name)}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="text-[12px] font-semibold text-gray-900 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+        <p className="text-[12px] font-semibold text-gray-900 truncate">
           {persona.name}
         </p>
         {showRole && (
-          <p className="text-[10px] text-gray-400 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[10px] text-gray-400 truncate">
             {member.role.replace("_", " ")}
           </p>
         )}
@@ -119,10 +91,10 @@ function PersonaSuggestionCard({
           {getInitials(persona.name)}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] font-semibold text-gray-900 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[12px] font-semibold text-gray-900 truncate">
             {persona.name}
           </p>
-          <p className="text-[10px] text-gray-400 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[10px] text-gray-400 truncate">
             {persona.title}
           </p>
         </div>
@@ -145,8 +117,8 @@ function PersonaSuggestionCard({
 
   return (
     <div
-      className="bg-white rounded-xl border border-gray-100 p-3 hover:border-gray-200 hover:shadow-md transition-all"
-      style={{ borderLeft: `3px solid ${color}` }}
+      className="bg-white rounded-[14px] border border-gray-100 p-3 hover:border-gray-200 hover:shadow-md transition-all"
+      style={{ borderLeft: `4px solid ${color}` }}
     >
       <div className="flex items-start gap-2.5">
         {persona.image && !imgFailed ? (
@@ -167,10 +139,10 @@ function PersonaSuggestionCard({
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-1">
             <div className="min-w-0">
-              <p className="text-[13px] font-semibold text-gray-900 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+              <p className="text-[13px] font-semibold text-gray-900 truncate">
                 {persona.name}
               </p>
-              <p className="text-[10px] text-gray-500 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+              <p className="text-[10px] text-gray-500 truncate">
                 {persona.title}
               </p>
             </div>
@@ -188,7 +160,7 @@ function PersonaSuggestionCard({
               {isSelected ? "✓" : "+"}
             </button>
           </div>
-          <p className="text-[10px] text-gray-400 mt-1 line-clamp-2 leading-relaxed" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[10px] text-gray-400 mt-1 line-clamp-2 leading-relaxed">
             {persona.shortBio}
           </p>
           <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
@@ -199,14 +171,13 @@ function PersonaSuggestionCard({
                 style={{
                   background: `${CATEGORY_COLORS[cat] ?? "#6B7280"}15`,
                   color: CATEGORY_COLORS[cat] ?? "#6B7280",
-                  fontFamily: "Inter, sans-serif",
                 }}
               >
                 {cat}
               </span>
             ))}
             {isSuggested && (
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-600 border border-amber-200" style={{ fontFamily: "Inter, sans-serif" }}>
+              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-600 border border-amber-200">
                 <Sparkles size={8} className="inline mr-0.5" />
                 Suggested
               </span>
@@ -287,7 +258,6 @@ export function BoardAssembly({
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search personas..."
             className="w-full pl-8 pr-3 py-2 text-[12px] rounded-lg border border-gray-200 bg-white focus:border-gray-400 outline-none"
-            style={{ fontFamily: "Inter, sans-serif" }}
           />
         </div>
         {filteredPersonas.slice(0, compact ? 4 : 20).map((p) => (
@@ -309,16 +279,16 @@ export function BoardAssembly({
       {/* Selected board + size indicator */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
             Board Members ({boardSize})
           </p>
-          <span className="text-[11px] font-semibold" style={{ color: sizeColor, fontFamily: "Inter, sans-serif" }}>
+          <span className="text-[11px] font-semibold" style={{ color: sizeColor }}>
             {sizeWarning}
           </span>
         </div>
         {selectedMembers.length === 0 ? (
           <div className="flex items-center justify-center h-16 bg-gray-50 rounded-lg border border-dashed border-gray-200">
-            <p className="text-[12px] text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
+            <p className="text-[12px] text-gray-400">
               Click personas on the right to add them to your board
             </p>
           </div>
@@ -345,14 +315,13 @@ export function BoardAssembly({
       {suggestedPersonas.length > 0 && showSuggestions && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider" style={{ fontFamily: "Inter, sans-serif" }}>
+            <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
               <Sparkles size={10} className="inline mr-1 text-amber-500" />
               Suggested
             </p>
             <button
               onClick={() => setShowSuggestions(false)}
               className="text-[10px] text-gray-400 hover:text-gray-600"
-              style={{ fontFamily: "Inter, sans-serif" }}
             >
               Hide
             </button>
@@ -381,7 +350,6 @@ export function BoardAssembly({
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, title, or category..."
             className="w-full pl-8 pr-3 py-2 text-[12px] rounded-lg border border-gray-200 bg-white focus:border-gray-400 outline-none"
-            style={{ fontFamily: "Inter, sans-serif" }}
           />
         </div>
         <div className="relative">
@@ -389,7 +357,6 @@ export function BoardAssembly({
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value as PersonaCategory | "All")}
             className="text-[11px] px-2 py-2 rounded-lg border border-gray-200 bg-white focus:border-gray-400 outline-none appearance-none pr-6 cursor-pointer"
-            style={{ fontFamily: "Inter, sans-serif" }}
           >
             {categories.map((cat) => (
               <option key={cat} value={cat}>
@@ -405,7 +372,7 @@ export function BoardAssembly({
       <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1 scrollbar-hide">
         {filteredPersonas.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-[12px] text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
+            <p className="text-[12px] text-gray-400">
               No personas match your search
             </p>
           </div>

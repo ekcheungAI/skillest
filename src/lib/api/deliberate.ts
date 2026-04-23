@@ -24,6 +24,7 @@ export async function generateFullDeliberation(params: {
   }>;
   apiKeyOverride?: string;
   provider?: DeliberationProvider;
+  platform?: "international" | "china";
 }): Promise<string> {
   const provider = params.provider ?? "kimi";
 
@@ -37,6 +38,7 @@ export async function generateFullDeliberation(params: {
       : params.briefAttachments ?? undefined,
     memberPrompts: params.memberPrompts,
     apiKeyOverride: params.apiKeyOverride,
+    platform: params.platform,
   };
 
   if (provider === "minimax") {

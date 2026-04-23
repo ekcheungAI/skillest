@@ -4,8 +4,13 @@
  * Docs: https://platform.moonshot.cn/docs
  */
 
-const KIMI_BASE_URL = "https://api.kimi.com/coding/v1";
-const KIMI_MODEL = "kimi-for-coding";
+const KIMI_BASE_URL_INTERNATIONAL = "https://api.moonshot.ai/v1";
+const KIMI_BASE_URL_CHINA = "https://api.moonshot.cn/v1";
+const KIMI_MODEL = "kimi-k2.6";
+
+function getBaseUrl(platform: "international" | "china" = "international") {
+  return platform === "china" ? KIMI_BASE_URL_CHINA : KIMI_BASE_URL_INTERNATIONAL;
+}
 
 export interface KimiMessage {
   role: "system" | "user" | "assistant";
@@ -36,7 +41,8 @@ function getApiKey(): string {
 async function callApi(
   messages: KimiMessage[],
   apiKeyOverride?: string,
-  modelOverride?: string
+  modelOverride?: string,
+  platform: "international" | "china" = "international"
 ): Promise<string> {
   const key = apiKeyOverride || getApiKey();
   if (!key) {
@@ -45,7 +51,7 @@ async function callApi(
     );
   }
 
-  const response = await fetch(`${KIMI_BASE_URL}/chat/completions`, {
+  const response = await fetch(`${getBaseUrl(platform)}/chat/completions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -86,13 +92,14 @@ async function callApi(
 export async function generateDeliberation(
   systemPrompt: string,
   userPrompt: string,
-  apiKeyOverride?: string
+  apiKeyOverride?: string,
+  platform: "international" | "china" = "international"
 ): Promise<string> {
   const messages: KimiMessage[] = [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt },
   ];
-  return callApi(messages, apiKeyOverride);
+  return callApi(messages, apiKeyOverride, undefined, platform);
 }
 
 /**
@@ -112,8 +119,9 @@ export async function generateFullDeliberation(params: {
     seatRoleLabel: string;
   }>;
   apiKeyOverride?: string;
+  platform?: "international" | "china";
 }): Promise<string> {
-  const { briefQuestion, briefGoal, briefDeadline, briefConstraints, briefKnownFacts, memberPrompts } = params;
+  const { briefQuestion, briefGoal, briefDeadline, briefConstraints, briefKnownFacts, memberPrompts, platform = "international" } = params;
 
   if (!memberPrompts.length) return "";
 
@@ -142,7 +150,7 @@ Follow this structure and have each board member contribute in character:
 
 Speak in each persona's authentic voice. Include disagreement where natural.`;
 
-  return generateDeliberation(systemPrompt, userPrompt, params.apiKeyOverride);
+  return generateDeliberation(systemPrompt, userPrompt, params.apiKeyOverride, platform);
 }
 
 /**
@@ -154,13 +162,15 @@ export async function generateText(params: {
   temperature?: number;
   maxTokens?: number;
   apiKeyOverride?: string;
+  platform?: "international" | "china";
 }): Promise<string> {
   const messages: KimiMessage[] = [
     { role: "system", content: params.systemPrompt },
     { role: "user", content: params.userPrompt },
   ];
+  const platform = params.platform ?? "international";
 
-  const response = await fetch(`${KIMI_BASE_URL}/chat/completions`, {
+  const response = await fetch(`${getBaseUrl(platform)}/chat/completions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

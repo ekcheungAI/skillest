@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { useNavigate } from "@/lib/hooks/useNavigate";
 import { useApiSettings, AVAILABLE_MODELS } from "@/contexts/ApiSettingsContext";
+import { testKimiKey, testMinimaxKey, KIMI_PLATFORMS } from "@/lib/api/testKeys";
 import { useBoard } from "@/contexts/BoardContext";
 import { personas } from "@/lib/personas";
 import {
@@ -38,11 +39,12 @@ function ModelCard({
   return (
     <button
       onClick={onSelect}
-      className={`flex-1 p-4 rounded-xl border-2 text-left transition-all ${
+      className={`flex-1 p-4 rounded-[14px] border text-left transition-all ${
         isSelected
-          ? "border-indigo-400 bg-indigo-50"
-          : "border-gray-100 bg-white hover:border-gray-200"
+          ? "border-gray-900 bg-gray-50 shadow-sm"
+          : "border-gray-100 bg-white hover:border-gray-200 hover:shadow-sm"
       }`}
+      style={isSelected ? { borderLeft: `4px solid ${model.badgeColor}` } : undefined}
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
@@ -53,17 +55,14 @@ function ModelCard({
             {model.icon}
           </div>
           <div>
-            <p
-              className="text-[13px] font-bold text-gray-900"
-              style={{ fontFamily: "Fraunces, Georgia, serif" }}
-            >
+            <p className="text-[13px] font-bold text-gray-900">
               {model.name}
             </p>
             <p className="text-[10px] text-gray-400">{model.description}</p>
           </div>
         </div>
         {isSelected && (
-          <CheckCircle2 size={16} className="text-indigo-500 flex-shrink-0" />
+          <CheckCircle2 size={16} className="text-gray-900 flex-shrink-0" />
         )}
       </div>
       {!isConfigured && (
@@ -88,6 +87,10 @@ function ApiKeyCard({
   savedKey,
   onSave,
   onReset,
+  onTest,
+  platformOptions,
+  defaultPlatform,
+  onPlatformChange,
 }: {
   title: string;
   description: string;
@@ -99,9 +102,20 @@ function ApiKeyCard({
   savedKey: string;
   onSave: (key: string) => void;
   onReset: () => void;
+  onTest?: (key: string, platform?: string) => Promise<{ ok: boolean; message: string; latencyMs?: number; errorDetail?: string }>;
+  platformOptions?: Array<{ id: string; label: string; baseUrl: string }>;
+  defaultPlatform?: string;
+  onPlatformChange?: (platformId: string) => void;
 }) {
   const [input, setInput] = useState("");
   const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState(false);
+  const [testResult, setTestResult] = useState<{ ok: boolean; message: string; latencyMs?: number } | null>(null);
+  const [selectedPlatform, setSelectedPlatform] = useState(defaultPlatform ?? platformOptions?.[0]?.id ?? "");
+
+  const keyToTest = input.trim() || savedKey;
+
+  const badgeColor = AVAILABLE_MODELS.find((m) => m.id === modelId)?.badgeColor ?? "#6B7280";
 
   const handleSave = async () => {
     if (!input.trim()) return;
@@ -120,15 +134,12 @@ function ApiKeyCard({
       <div className="flex items-center gap-2">
         <div
           className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
-          style={{ background: AVAILABLE_MODELS.find((m) => m.id === modelId)?.badgeColor }}
+          style={{ background: badgeColor }}
         >
           {AVAILABLE_MODELS.find((m) => m.id === modelId)?.icon}
         </div>
         <div>
-          <p
-            className="text-[13px] font-bold text-gray-900"
-            style={{ fontFamily: "Fraunces, Georgia, serif" }}
-          >
+          <p className="text-[13px] font-bold text-gray-900">
             {title}
           </p>
           <p className="text-[10px] text-gray-400">{description}</p>
@@ -152,6 +163,25 @@ function ApiKeyCard({
         </div>
       )}
 
+      {/* Platform selector */}
+      {platformOptions && platformOptions.length > 1 && (
+        <div className="flex gap-1.5">
+          {platformOptions.map((p) => (
+            <button
+              key={p.id}
+              onClick={() => { setSelectedPlatform(p.id); setTestResult(null); onPlatformChange?.(p.id); }}
+              className={`px-3 py-1 rounded-md text-[10px] font-medium transition-colors ${
+                selectedPlatform === p.id
+                  ? "bg-gray-900 text-white"
+                  : "bg-gray-50 text-gray-500 border border-gray-200 hover:bg-gray-100"
+              }`}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Input */}
       <div>
         <input
@@ -159,16 +189,14 @@ function ApiKeyCard({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="sk-..."
-          className="w-full px-3 py-2 rounded-lg border border-gray-200 text-[12px] text-gray-800 placeholder-gray-300 focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100"
-          style={{ fontFamily: "Inter, sans-serif" }}
+          className="w-full px-3 py-2 rounded-[14px] border border-gray-200 text-[12px] text-gray-800 placeholder-gray-300 focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-100"
         />
         <div className="flex items-center justify-between mt-1.5">
           <a
             href={docsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[10px] text-indigo-500 hover:underline"
-            style={{ fontFamily: "Inter, sans-serif" }}
+            className="flex items-center gap-1 text-[10px] text-sky-600 hover:underline"
           >
             Get API key <ExternalLink size={9} />
           </a>
@@ -180,21 +208,63 @@ function ApiKeyCard({
         <button
           onClick={handleSave}
           disabled={!input.trim() || saving}
-          className="px-4 py-1.5 rounded-lg bg-gray-900 text-white text-[11px] font-semibold hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          style={{ fontFamily: "Inter, sans-serif" }}
+          className="px-4 py-1.5 rounded-[14px] bg-gray-900 text-white text-[11px] font-semibold hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           {saving ? "Saving..." : "Save Key"}
         </button>
+        {onTest && (
+          <button
+            onClick={async () => {
+              if (!keyToTest) { toast.error("No API key to test"); return; }
+              setTesting(true);
+              setTestResult(null);
+              try {
+                const result = await onTest(keyToTest, selectedPlatform);
+                setTestResult(result);
+                if (result.ok) toast.success(result.message);
+                else toast.error(result.message);
+              } finally {
+                setTesting(false);
+              }
+            }}
+            disabled={testing || !keyToTest}
+            className="px-4 py-1.5 rounded-[14px] border border-gray-200 text-gray-600 text-[11px] font-semibold hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            {testing ? "Testing..." : "Test Key"}
+          </button>
+        )}
         {isUsingCustom && (
           <button
             onClick={onReset}
-            className="px-4 py-1.5 rounded-lg border border-gray-200 text-[11px] text-gray-500 hover:bg-gray-50 transition-colors"
-            style={{ fontFamily: "Inter, sans-serif" }}
+            className="px-4 py-1.5 rounded-[14px] border border-gray-200 text-[11px] text-gray-500 hover:bg-gray-50 transition-colors"
           >
             Reset
           </button>
         )}
       </div>
+
+      {/* Test result */}
+      {testResult && (
+        <div
+          className={`flex items-start gap-2 px-3 py-2 rounded-lg text-[11px] ${
+            testResult.ok
+              ? "bg-green-50 border border-green-200 text-green-700"
+              : "bg-red-50 border border-red-200 text-red-700"
+          }`}
+        >
+          {testResult.ok ? (
+            <CheckCircle2 size={12} className="flex-shrink-0 mt-0.5" />
+          ) : (
+            <AlertCircle size={12} className="flex-shrink-0 mt-0.5" />
+          )}
+          <div>
+            <p>{testResult.message}</p>
+            {testResult.latencyMs !== undefined && (
+              <p className="text-[10px] opacity-70 mt-0.5">{testResult.latencyMs}ms</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -232,10 +302,7 @@ function SessionRow({ session }: { session: BoardSession }) {
         style={{ background: statusColor }}
       />
       <div className="flex-1 min-w-0 cursor-pointer" onClick={() => navigate(`/board/${session.id}`)}>
-        <p
-          className="text-[12px] font-semibold text-gray-900 truncate"
-          style={{ fontFamily: "Fraunces, Georgia, serif" }}
-        >
+        <p className="text-[12px] font-semibold text-gray-900 truncate">
           {session.title}
         </p>
         <div className="flex items-center gap-2 mt-0.5">
@@ -255,7 +322,7 @@ function SessionRow({ session }: { session: BoardSession }) {
       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
         <button
           onClick={(e) => { e.stopPropagation(); navigate(`/board/${session.id}`); }}
-          className="text-[10px] px-2 py-1 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+          className="text-[10px] px-2 py-1 rounded-[14px] bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
         >
           Open
         </button>
@@ -264,7 +331,7 @@ function SessionRow({ session }: { session: BoardSession }) {
             e.stopPropagation();
             if (confirm("Delete this board session?")) deleteSession(session.id);
           }}
-          className="p-1 rounded-md text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+          className="p-1 rounded-[14px] text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
         >
           <Trash2 size={11} />
         </button>
@@ -283,6 +350,8 @@ export default function Settings() {
     isUsingCustomKimiKey,
     setCustomKimiKey,
     clearCustomKimiKey,
+    kimiPlatform,
+    setKimiPlatform,
     minimaxKey,
     isUsingCustomMinimaxKey,
     setCustomMinimaxKey,
@@ -295,7 +364,6 @@ export default function Settings() {
   const kimiConfigured = isModelConfigured("k2.6");
   const minimaxConfigured = isModelConfigured("m2.7");
 
-  // Sort sessions by updatedAt desc
   const sortedSessions = [...sessions].sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
   );
@@ -303,10 +371,8 @@ export default function Settings() {
   return (
     <div className="min-h-screen" style={{ background: "#F7F6F2" }}>
       {/* Navbar */}
-      <div
-        className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm border-b border-gray-100"
-      >
-        <div className="max-w-2xl mx-auto px-4 h-12 flex items-center justify-between">
+      <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 h-12 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/">
               <button className="flex items-center gap-1.5 text-[12px] text-gray-500 hover:text-gray-700 transition-colors">
@@ -317,10 +383,7 @@ export default function Settings() {
             <div className="w-px h-4 bg-gray-200" />
             <div className="flex items-center gap-1.5">
               <Settings2 size={13} className="text-gray-500" />
-              <span
-                className="text-[13px] font-bold text-gray-900"
-                style={{ fontFamily: "Fraunces, Georgia, serif" }}
-              >
+              <span className="text-[13px] font-bold text-gray-900">
                 Settings
               </span>
             </div>
@@ -329,15 +392,15 @@ export default function Settings() {
       </div>
 
       {/* Content */}
-      <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
+      <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
+
         {/* Model Selector */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+        <div
+          className="bg-white rounded-[14px] border border-gray-100 p-5 shadow-sm"
+        >
           <div className="flex items-center gap-2 mb-4">
             <Cpu size={14} className="text-gray-400" />
-            <h2
-              className="text-[15px] font-bold text-gray-900"
-              style={{ fontFamily: "Fraunces, Georgia, serif" }}
-            >
+            <h2 className="text-[15px] font-bold text-gray-900">
               LLM Model
             </h2>
           </div>
@@ -362,7 +425,6 @@ export default function Settings() {
               />
             ))}
           </div>
-          {/* Show warning if active model not configured */}
           {!isModelConfigured(selectedModel) && (
             <div className="mt-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200">
               <AlertCircle size={12} className="text-amber-500 flex-shrink-0" />
@@ -374,7 +436,10 @@ export default function Settings() {
         </div>
 
         {/* Kimi API Key */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+        <div
+          className="bg-white rounded-[14px] border border-gray-100 p-5 shadow-sm"
+          style={{ borderLeft: `4px solid ${AVAILABLE_MODELS.find((m) => m.id === "k2.6")?.badgeColor ?? "#6B7280"}` }}
+        >
           <ApiKeyCard
             title="Kimi K2.6"
             description="Moonshot AI · api.moonshot.cn"
@@ -386,11 +451,18 @@ export default function Settings() {
             savedKey={kimiKey}
             onSave={setCustomKimiKey}
             onReset={clearCustomKimiKey}
+            onTest={testKimiKey}
+            platformOptions={KIMI_PLATFORMS}
+            defaultPlatform={kimiPlatform}
+            onPlatformChange={(id) => setKimiPlatform(id as "international" | "china")}
           />
         </div>
 
         {/* MiniMax API Key */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+        <div
+          className="bg-white rounded-[14px] border border-gray-100 p-5 shadow-sm"
+          style={{ borderLeft: `4px solid ${AVAILABLE_MODELS.find((m) => m.id === "m2.7")?.badgeColor ?? "#6B7280"}` }}
+        >
           <ApiKeyCard
             title="MiniMax M2.7"
             description="MiniMax · api.minimax.io"
@@ -402,17 +474,15 @@ export default function Settings() {
             savedKey={minimaxKey}
             onSave={setCustomMinimaxKey}
             onReset={clearCustomMinimaxKey}
+            onTest={testMinimaxKey}
           />
         </div>
 
         {/* Session History */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-[14px] border border-gray-100 p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-1">
             <Clock size={14} className="text-gray-400" />
-            <h2
-              className="text-[15px] font-bold text-gray-900"
-              style={{ fontFamily: "Fraunces, Georgia, serif" }}
-            >
+            <h2 className="text-[15px] font-bold text-gray-900">
               Board History
             </h2>
             <span className="text-[10px] text-gray-400 ml-auto">{sortedSessions.length} sessions</span>
@@ -422,7 +492,7 @@ export default function Settings() {
             <div className="py-8 text-center">
               <p className="text-[12px] text-gray-400 mb-3">No board sessions yet</p>
               <Link href="/board/new">
-                <button className="text-[11px] px-4 py-1.5 rounded-lg bg-gray-900 text-white hover:bg-gray-800 transition-colors">
+                <button className="text-[11px] px-4 py-1.5 rounded-[14px] bg-gray-900 text-white hover:bg-gray-800 transition-colors">
                   Create your first board
                 </button>
               </Link>
@@ -435,7 +505,7 @@ export default function Settings() {
               {sortedSessions.length > 0 && (
                 <div className="pt-3 flex justify-end">
                   <Link href="/boards">
-                    <button className="text-[11px] text-indigo-500 hover:text-indigo-700 transition-colors">
+                    <button className="text-[11px] text-gray-600 hover:text-gray-900 transition-colors">
                       View all boards
                     </button>
                   </Link>

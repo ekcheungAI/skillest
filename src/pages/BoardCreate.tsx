@@ -168,12 +168,10 @@ export default function BoardCreate() {
     <div className="min-h-screen" style={{ background: "#F7F6F2" }}>
       {/* Top bar */}
       <div className="sticky top-0 z-40 bg-white/95 border-b border-gray-200" style={{ backdropFilter: "blur(8px)" }}>
-        <div className="max-w-5xl mx-auto px-4 h-12 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between">
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-[12px] text-gray-600 hover:text-gray-900 transition-colors"
-            style={{ fontFamily: "Inter, sans-serif" }}
-          >
+            className="flex items-center gap-2 text-[12px] text-gray-600 hover:text-gray-900 transition-colors">
             <ArrowLeft size={14} />
             Back to Library
           </button>
@@ -188,17 +186,17 @@ export default function BoardCreate() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-gray-600 text-[10px] font-semibold mb-3 border border-gray-200 bg-white/70" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "0.05em" }}>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-gray-600 text-[10px] font-semibold mb-3 border border-gray-200 bg-white/70" style={{ letterSpacing: "0.05em" }}>
             <Rocket size={9} className="text-amber-500" />
             VIRTUAL EXPERT BOARD
           </div>
           <h1 className="text-[26px] font-bold text-gray-900 leading-tight mb-2" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
             Create Your Board
           </h1>
-          <p className="text-[13px] text-gray-500 leading-relaxed" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[13px] text-gray-500 leading-relaxed">
             Frame your decision, assemble expert personas, and run a structured board session.
           </p>
         </div>
@@ -216,12 +214,10 @@ export default function BoardCreate() {
                     ? "bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
                     : "bg-gray-100 text-gray-400"
                 }`}
-                style={{ fontFamily: "Inter, sans-serif" }}
               >
                 <span className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold" style={{
                   background: i < step ? "transparent" : i === step ? "#FFFFFF30" : "transparent",
                   color: i < step ? "#FFFFFF" : i === step ? "#FFFFFF" : "#9CA3AF",
-                  fontFamily: "Inter, sans-serif",
                 }}>
                   {i < step ? "✓" : i + 1}
                 </span>
@@ -242,7 +238,7 @@ export default function BoardCreate() {
               <h2 className="text-[18px] font-bold text-gray-900 mb-1" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
                 Frame the Decision
               </h2>
-              <p className="text-[12px] text-gray-500 mb-5" style={{ fontFamily: "Inter, sans-serif" }}>
+              <p className="text-[12px] text-gray-500 mb-5">
                 Start with the question you need answered. The more specific, the better the board deliberation.
               </p>
               <BoardBriefForm
@@ -261,14 +257,13 @@ export default function BoardCreate() {
                   <h2 className="text-[18px] font-bold text-gray-900 mb-1" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
                     Assemble the Board
                   </h2>
-                  <p className="text-[12px] text-gray-500" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p className="text-[12px] text-gray-500">
                     Choose 3–7 expert personas. A balanced board includes diverse perspectives. {members.length}/7 selected.
                   </p>
                 </div>
                 <button
                   onClick={handleAutoBuild}
                   className="flex items-center gap-1.5 text-[12px] font-semibold px-4 py-2 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 transition-colors flex-shrink-0"
-                  style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   <Sparkles size={12} />
                   Auto-Build
@@ -289,7 +284,7 @@ export default function BoardCreate() {
               <h2 className="text-[18px] font-bold text-gray-900 mb-1" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
                 Assign Seat Roles
               </h2>
-              <p className="text-[12px] text-gray-500 mb-5" style={{ fontFamily: "Inter, sans-serif" }}>
+              <p className="text-[12px] text-gray-500 mb-5">
                 Each seat has a specific purpose in the board. Assign roles based on each persona's strengths.
               </p>
               <SeatRolePicker
@@ -311,7 +306,6 @@ export default function BoardCreate() {
                 ? "opacity-0 pointer-events-none"
                 : "border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
             }`}
-            style={{ fontFamily: "Inter, sans-serif" }}
           >
             <ArrowLeft size={14} />
             Back
@@ -326,7 +320,6 @@ export default function BoardCreate() {
                   ? "bg-gray-900 text-white hover:bg-gray-800 border-gray-900"
                   : "bg-gray-100 text-gray-400 border-gray-100 cursor-not-allowed"
               }`}
-              style={{ fontFamily: "Inter, sans-serif" }}
             >
               Next
               <ArrowRight size={14} />
@@ -340,7 +333,6 @@ export default function BoardCreate() {
                   ? "bg-gray-900 text-white hover:bg-gray-800 border-gray-900 shadow-md hover:shadow-lg"
                   : "bg-gray-100 text-gray-400 border-gray-100 cursor-not-allowed"
               }`}
-              style={{ fontFamily: "Inter, sans-serif" }}
             >
               <Rocket size={14} />
               Launch Board
@@ -351,14 +343,14 @@ export default function BoardCreate() {
         {/* Brief summary as user progresses */}
         {brief.question && step > 0 && (
           <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
-            <p className="text-[11px] font-semibold text-blue-700 mb-1" style={{ fontFamily: "Inter, sans-serif" }}>
+            <p className="text-[11px] font-semibold text-blue-700 mb-1">
               Decision Question
             </p>
             <p className="text-[13px] text-blue-900 font-medium leading-relaxed" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
               "{brief.question}"
             </p>
             {brief.goal && (
-              <p className="text-[11px] text-blue-700 mt-1" style={{ fontFamily: "Inter, sans-serif" }}>
+              <p className="text-[11px] text-blue-700 mt-1">
                 Goal: {brief.goal}
               </p>
             )}

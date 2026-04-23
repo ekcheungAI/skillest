@@ -1,6 +1,7 @@
 import type { Persona } from "@/lib/personas";
-import type { BoardMember, SeatRole } from "@/lib/boards";
+import type { BoardMember } from "@/lib/boards";
 import { SEAT_ROLE_CONFIG } from "@/lib/boards";
+import { ROLE_COLORS } from "@/lib/board-design";
 
 interface BoardMemberCardProps {
   member: BoardMember;
@@ -9,14 +10,6 @@ interface BoardMemberCardProps {
   compact?: boolean;
   confidenceNote?: string;
 }
-
-const ROLE_COLORS: Record<SeatRole, string> = {
-  chair: "#1A1A1A",
-  domain_specialist: "#0EA5E9",
-  operator: "#10B981",
-  contrarian: "#EF4444",
-  risk_reviewer: "#8B5CF6",
-};
 
 function getInitials(name: string): string {
   const parts = name.trim().split(/\s+/);
@@ -49,10 +42,10 @@ export function BoardMemberCard({
           {getInitials(persona.name)}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] font-semibold text-gray-900 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[12px] font-semibold text-gray-900 truncate">
             {persona.name}
           </p>
-          <p className="text-[10px] text-gray-400 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[10px] text-gray-400 truncate">
             {roleConfig.label}
           </p>
         </div>
@@ -70,8 +63,8 @@ export function BoardMemberCard({
 
   return (
     <div
-      className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-      style={{ borderTop: `3px solid ${roleColor}` }}
+      className="bg-white rounded-[14px] border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+      style={{ borderLeft: `4px solid ${roleColor}` }}
     >
       <div className="p-4">
         <div className="flex items-start gap-3">
@@ -86,10 +79,10 @@ export function BoardMemberCard({
             {getInitials(persona.name)}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-[14px] font-semibold text-gray-900" style={{ fontFamily: "Inter, sans-serif" }}>
+            <p className="text-[14px] font-semibold text-gray-900">
               {persona.name}
             </p>
-            <p className="text-[11px] text-gray-500 mt-0.5 truncate" style={{ fontFamily: "Inter, sans-serif" }}>
+            <p className="text-[11px] text-gray-500 mt-0.5 truncate">
               {persona.title}
             </p>
             <span
@@ -97,7 +90,6 @@ export function BoardMemberCard({
               style={{
                 background: `${roleColor}15`,
                 color: roleColor,
-                fontFamily: "Inter, sans-serif",
               }}
             >
               {roleConfig.icon} {roleConfig.label}
@@ -114,13 +106,13 @@ export function BoardMemberCard({
         </div>
 
         {confidenceNote && (
-          <p className="mt-2 text-[11px] text-gray-500 leading-relaxed italic" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="mt-2 text-[11px] text-gray-500 leading-relaxed italic">
             {confidenceNote}
           </p>
         )}
 
         {member.inclusionReason && (
-          <p className="mt-2 text-[11px] text-gray-600 leading-relaxed" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="mt-2 text-[11px] text-gray-600 leading-relaxed">
             <span className="font-semibold text-gray-800">Why included:</span> {member.inclusionReason}
           </p>
         )}

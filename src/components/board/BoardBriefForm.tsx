@@ -39,7 +39,6 @@ function FieldLabel({
     <label
       htmlFor={htmlFor}
       className="block text-[11px] font-semibold text-gray-600 mb-1"
-      style={{ fontFamily: "Inter, sans-serif" }}
     >
       {label}
       {required && <span className="text-red-400 ml-0.5">*</span>}
@@ -92,7 +91,7 @@ function OptimizeButton({
       onClick={handleOptimize}
       disabled={optimizing}
       title="Optimize with AI"
-      className="flex items-center gap-1 text-[10px] text-gray-400 hover:text-indigo-500 px-1.5 py-1 rounded transition-colors disabled:opacity-50"
+      className="flex items-center gap-1 text-[10px] text-gray-400 hover:text-sky-500 px-1.5 py-1 rounded transition-colors disabled:opacity-50"
     >
       {optimizing ? (
         <span className="animate-spin">...</span>
@@ -129,8 +128,7 @@ function OptimizableTextarea({
         placeholder={placeholder}
         rows={rows}
         required={required}
-        className="w-full text-[13px] px-3 py-2 pr-14 rounded-lg border border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-300 outline-none resize-none bg-white"
-        style={{ fontFamily: "Inter, sans-serif" }}
+        className="w-full text-[13px] px-3 py-2 pr-14 rounded-[14px] border border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-300 outline-none resize-none bg-white"
       />
       <div className="absolute top-1.5 right-2">
         <OptimizeButton
@@ -242,9 +240,9 @@ export function BoardBriefForm({
     <div className="space-y-5">
       {/* Depth mode toggle */}
       <div>
-        <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
           Session Depth
-        </p>
+          </p>
         <div className="flex gap-2 flex-wrap">
           {modes.map((m) => (
             <button
@@ -258,11 +256,10 @@ export function BoardBriefForm({
             >
               <span
                 className={`text-[12px] font-semibold ${mode === m ? "text-gray-900" : "text-gray-700"}`}
-                style={{ fontFamily: "Inter, sans-serif" }}
               >
                 {DEPTH_MODE_CONFIG[m].label}
               </span>
-              <span className="text-[10px] text-gray-400 mt-0.5" style={{ fontFamily: "Inter, sans-serif" }}>
+              <span className="text-[10px] text-gray-400 mt-0.5">
                 {DEPTH_MODE_CONFIG[m].description}
               </span>
             </button>
@@ -305,7 +302,6 @@ export function BoardBriefForm({
             onChange={(e) => { setDeadline(e.target.value); emit({ deadline: e.target.value }); }}
             placeholder="e.g. End of Q2 2026"
             className="w-full text-[13px] px-3 py-2 rounded-lg border border-gray-200 focus:border-gray-400 focus:ring-1 focus:ring-gray-300 outline-none bg-white"
-            style={{ fontFamily: "Inter, sans-serif" }}
           />
         </div>
         <div>
@@ -357,7 +353,7 @@ export function BoardBriefForm({
       {/* Context Documents (URLs + File uploads) */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <p className="text-[11px] font-semibold text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[11px] font-semibold text-gray-600">
             Context Documents
           </p>
           <div className="flex items-center gap-2">
@@ -391,16 +387,16 @@ export function BoardBriefForm({
             {attachments.map((att, i) => (
               <div
                 key={i}
-                className={`flex items-center gap-2 rounded-lg px-3 py-1.5 border ${
+                className={`flex items-center gap-2 rounded-[14px] px-3 py-1.5 border ${
                   att.type === "url"
                     ? "bg-gray-50 border-gray-100"
-                    : "bg-indigo-50 border-indigo-100"
+                    : "bg-sky-50 border-sky-100"
                 }`}
               >
                 {att.type === "url" ? (
                   <Link size={10} className="text-gray-400 flex-shrink-0" />
                 ) : (
-                  <FileText size={10} className="text-indigo-400 flex-shrink-0" />
+                  <FileText size={10} className="text-sky-400 flex-shrink-0" />
                 )}
                 {att.type === "url" ? (
                   <a
@@ -408,13 +404,12 @@ export function BoardBriefForm({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[11px] text-blue-600 hover:text-blue-800 truncate flex-1"
-                    style={{ fontFamily: "Inter, sans-serif" }}
                   >
                     {att.name}
                   </a>
                 ) : (
-                  <span className="text-[11px] text-indigo-700 truncate flex-1" style={{ fontFamily: "Inter, sans-serif" }}>
-                    {att.name} <span className="text-[9px] text-indigo-400">({att.content.length.toLocaleString()} chars)</span>
+                  <span className="text-[11px] text-sky-700 truncate flex-1">
+                    {att.name} <span className="text-[9px] text-sky-400">({att.content.length.toLocaleString()} chars)</span>
                   </span>
                 )}
                 <button
@@ -427,7 +422,7 @@ export function BoardBriefForm({
             ))}
           </div>
         ) : (
-          <p className="text-[11px] text-gray-400 italic" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p className="text-[11px] text-gray-400 italic">
             No documents added. Upload PRD, brief, or spec files — or paste in research URLs. These are injected into the deliberation context.
           </p>
         )}

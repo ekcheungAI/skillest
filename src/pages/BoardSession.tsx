@@ -217,7 +217,7 @@ export default function BoardSession() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [showOutcomeForm, setShowOutcomeForm] = useState(false);
 
-  const { activeModel, getActiveApiKey, isModelConfigured } = useApiSettings();
+  const { activeModel, getActiveApiKey, isModelConfigured, kimiPlatform } = useApiSettings();
 
   const [outcomeForm, setOutcomeForm] = useState<Partial<DecisionOutcome>>({
     recommendation: "",
@@ -244,7 +244,6 @@ export default function BoardSession() {
           <button
             onClick={() => navigate("/boards")}
             className="text-[13px] text-blue-600 hover:text-blue-800"
-            style={{ fontFamily: "Inter, sans-serif" }}
           >
             ← Back to Boards
           </button>
@@ -300,6 +299,7 @@ export default function BoardSession() {
         memberPrompts,
         apiKeyOverride: apiKey,
         provider: activeModel.provider,
+        platform: kimiPlatform,
       });
 
       const stageOrder: DiscussionStage[] = [
@@ -436,7 +436,6 @@ export default function BoardSession() {
             <button
               onClick={() => navigate("/boards")}
               className="flex items-center gap-1.5 text-[12px] text-gray-600 hover:text-gray-900 transition-colors"
-              style={{ fontFamily: "Inter, sans-serif" }}
             >
               <ArrowLeft size={13} />
               My Boards
@@ -453,20 +452,18 @@ export default function BoardSession() {
               style={{
                 background: `${BOARD_STATUS_CONFIG[session.status].color}15`,
                 color: BOARD_STATUS_CONFIG[session.status].color,
-                fontFamily: "Inter, sans-serif",
               }}
             >
               {BOARD_STATUS_CONFIG[session.status].label}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[11px] text-gray-400 hidden sm:block" style={{ fontFamily: "Inter, sans-serif" }}>
+            <span className="text-[11px] text-gray-400 hidden sm:block" >
               {session.members.length} members
             </span>
             <Link href="/settings">
               <span
                 className="flex items-center gap-1.5 text-[11px] text-gray-600 hover:text-gray-900 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors cursor-pointer"
-                style={{ fontFamily: "Inter, sans-serif" }}
                 title="Settings"
               >
                 <Settings2 size={11} />
@@ -480,7 +477,6 @@ export default function BoardSession() {
             <button
               onClick={() => handleCopy(compositePrompt)}
               className="flex items-center gap-1.5 text-[11px] text-gray-600 hover:text-gray-900 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
-              style={{ fontFamily: "Inter, sans-serif" }}
             >
               <Copy size={11} />
               Copy Prompt
@@ -515,7 +511,6 @@ export default function BoardSession() {
                       ? "bg-gray-200 text-gray-700"
                       : "text-gray-400"
                   }`}
-                  style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   {s.icon}
                   {s.label}
@@ -534,10 +529,10 @@ export default function BoardSession() {
             <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
               <div className="flex items-center gap-2 mb-3">
                 <Users size={14} className="text-gray-600" />
-                <p className="text-[12px] font-semibold text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
+                <p className="text-[12px] font-semibold text-gray-700" >
                   Board Members
                 </p>
-                <span className="ml-auto text-[10px] text-gray-400" style={{ fontFamily: "Inter, sans-serif" }}>
+                <span className="ml-auto text-[10px] text-gray-400" >
                   {session.members.length}/7
                 </span>
               </div>
@@ -562,7 +557,7 @@ export default function BoardSession() {
               <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
                 <div className="flex items-center gap-2 mb-2">
                   <FileText size={14} className="text-gray-600" />
-                  <p className="text-[12px] font-semibold text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p className="text-[12px] font-semibold text-gray-700" >
                     Decision Brief
                   </p>
                 </div>
@@ -570,7 +565,7 @@ export default function BoardSession() {
                   "{session.brief.question}"
                 </p>
                 {session.brief.goal && (
-                  <p className="text-[11px] text-gray-500 mt-1" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p className="text-[11px] text-gray-500 mt-1" >
                     Goal: {session.brief.goal}
                   </p>
                 )}
@@ -580,13 +575,12 @@ export default function BoardSession() {
             {/* Quick actions */}
             {stage === "brief" && (
               <div className="bg-amber-50 rounded-2xl border border-amber-100 p-4">
-                <p className="text-[11px] font-semibold text-amber-700 mb-1" style={{ fontFamily: "Inter, sans-serif" }}>
+                <p className="text-[11px] font-semibold text-amber-700 mb-1" >
                   Ready to start?
                 </p>
                 <button
                   onClick={() => setStage("research")}
                   className="w-full flex items-center justify-center gap-2 text-[12px] font-semibold px-4 py-2 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors"
-                  style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   <ArrowRight size={13} />
                   Continue to Research
@@ -623,7 +617,7 @@ export default function BoardSession() {
                   <h2 className="text-[18px] font-bold text-gray-900 mb-1" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
                     Research Prep
                   </h2>
-                  <p className="text-[12px] text-gray-500 mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p className="text-[12px] text-gray-500 mb-4" >
                     {session.mode === "deep_research"
                       ? "Deep Research mode: building a shared context packet from your brief and attached URLs."
                       : "Quick mode: research packet is a lightweight summary. For deeper context, switch to Deep Research in the Brief tab."}
@@ -637,7 +631,6 @@ export default function BoardSession() {
                   <button
                     onClick={() => setStage("deliberate")}
                     className="flex items-center gap-2 text-[13px] font-semibold px-5 py-2.5 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors"
-                    style={{ fontFamily: "Inter, sans-serif" }}
                   >
                     Begin Deliberation
                     <ArrowRight size={13} />
@@ -654,7 +647,7 @@ export default function BoardSession() {
                       <h2 className="text-[18px] font-bold text-gray-900" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
                         Roundtable Discussion
                       </h2>
-                      <p className="text-[12px] text-gray-500 mt-1" style={{ fontFamily: "Inter, sans-serif" }}>
+                      <p className="text-[12px] text-gray-500 mt-1" >
                         {session.turns.length} turns generated — each expert speaks in sequence across 6 discussion stages
                       </p>
                     </div>
@@ -668,7 +661,6 @@ export default function BoardSession() {
                           ? "bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100"
                           : "bg-gray-900 text-white hover:bg-gray-800"
                       }`}
-                      style={{ fontFamily: "Inter, sans-serif" }}
                     >
                       {isGenerating ? (
                         <>
@@ -699,7 +691,6 @@ export default function BoardSession() {
                     <button
                       onClick={() => { setStatus(session.id, "synthesizing"); setStage("synthesize"); }}
                       className="flex items-center gap-2 text-[13px] font-semibold px-5 py-2.5 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors"
-                      style={{ fontFamily: "Inter, sans-serif" }}
                     >
                       Proceed to Synthesis
                       <ArrowRight size={13} />
@@ -717,7 +708,7 @@ export default function BoardSession() {
                       <h2 className="text-[18px] font-bold text-gray-900" style={{ fontFamily: "Fraunces, Georgia, serif" }}>
                         Synthesis
                       </h2>
-                      <p className="text-[12px] text-gray-500 mt-1" style={{ fontFamily: "Inter, sans-serif" }}>
+                      <p className="text-[12px] text-gray-500 mt-1" >
                         Review the board's deliberations and finalize the recommendation
                       </p>
                     </div>
@@ -725,31 +716,31 @@ export default function BoardSession() {
 
                   {/* Brief summary of discussion */}
                   <div className="bg-gray-50 rounded-xl p-4 mb-4">
-                    <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2" style={{ fontFamily: "Inter, sans-serif" }}>
+                    <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2" >
                       Deliberation Summary
                     </p>
                     <div className="space-y-1.5">
                       <div className="flex items-start gap-2">
                         <CheckCircle2 size={11} className="text-green-500 mt-0.5 flex-shrink-0" />
-                        <p className="text-[12px] text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
+                        <p className="text-[12px] text-gray-700" >
                           {session.members.length} board members provided initial positions
                         </p>
                       </div>
                       <div className="flex items-start gap-2">
                         <BarChart3 size={11} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                        <p className="text-[12px] text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
+                        <p className="text-[12px] text-gray-700" >
                           {session.turns.filter((t) => t.stage === "key_argument").length} key arguments presented
                         </p>
                       </div>
                       <div className="flex items-start gap-2">
                         <AlertTriangle size={11} className="text-amber-500 mt-0.5 flex-shrink-0" />
-                        <p className="text-[12px] text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
+                        <p className="text-[12px] text-gray-700" >
                           {session.turns.filter((t) => t.stage === "challenge").length} challenges raised by contrarian/risk reviewer
                         </p>
                       </div>
                       <div className="flex items-start gap-2">
                         <Brain size={11} className="text-purple-500 mt-0.5 flex-shrink-0" />
-                        <p className="text-[12px] text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
+                        <p className="text-[12px] text-gray-700" >
                           {session.turns.filter((t) => t.stage === "final_recommendation").length} final synthesis statement{session.turns.filter((t) => t.stage === "final_recommendation").length !== 1 ? "s" : ""} produced
                         </p>
                       </div>
@@ -758,13 +749,12 @@ export default function BoardSession() {
 
                   {!session.outcome && (
                     <div className="border-t border-gray-100 pt-4">
-                      <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-3" style={{ fontFamily: "Inter, sans-serif" }}>
+                      <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-3" >
                         Generate Recommendation
                       </p>
                       <button
                         onClick={handleGenerateOutcome}
                         className="flex items-center gap-2 text-[12px] font-semibold px-4 py-2 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors"
-                        style={{ fontFamily: "Inter, sans-serif" }}
                       >
                         <Brain size={12} />
                         Generate Board Recommendation
@@ -778,7 +768,6 @@ export default function BoardSession() {
                     <button
                       onClick={() => setStage("output")}
                       className="flex items-center gap-2 text-[13px] font-semibold px-5 py-2.5 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors"
-                      style={{ fontFamily: "Inter, sans-serif" }}
                     >
                       View Board Memo
                       <ArrowRight size={13} />
@@ -799,7 +788,6 @@ export default function BoardSession() {
                   <button
                     onClick={() => setStage("synthesize")}
                     className="flex items-center gap-2 text-[13px] font-semibold px-5 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50 transition-colors"
-                    style={{ fontFamily: "Inter, sans-serif" }}
                   >
                     <ArrowLeft size={13} />
                     Back to Synthesis
@@ -807,7 +795,6 @@ export default function BoardSession() {
                   <button
                     onClick={() => navigate("/boards")}
                     className="flex items-center gap-2 text-[13px] font-semibold px-5 py-2.5 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors"
-                    style={{ fontFamily: "Inter, sans-serif" }}
                   >
                     <CheckCircle2 size={13} />
                     Done — View All Boards

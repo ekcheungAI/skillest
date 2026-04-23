@@ -33,6 +33,8 @@ export interface ApiSettingsValue {
   isUsingCustomKimiKey: boolean;
   setCustomKimiKey: (key: string) => void;
   clearCustomKimiKey: () => void;
+  kimiPlatform: "international" | "china";
+  setKimiPlatform: (platform: "international" | "china") => void;
 
   // MiniMax
   minimaxKey: string;
@@ -75,6 +77,7 @@ interface StoredSettings {
   customKimiKey?: string;
   customMinimaxKey?: string;
   selectedModel?: string;
+  kimiPlatform?: "international" | "china";
 }
 
 function loadSettings(): StoredSettings {
@@ -126,6 +129,9 @@ export function ApiSettingsProvider({ children }: { children: ReactNode }) {
   const [selectedModel, setSelectedModelState] = useState(getDefaultModel);
   const [kimiData, setKimiData] = useState(getKimiKey);
   const [minimaxData, setMinimaxData] = useState(getMinimaxKey);
+  const [kimiPlatform, setKimiPlatformState] = useState<"international" | "china">(
+    () => loadSettings().kimiPlatform ?? "international"
+  );
 
   const setSelectedModel = useCallback((modelId: string) => {
     setSelectedModelState(modelId);
@@ -136,6 +142,11 @@ export function ApiSettingsProvider({ children }: { children: ReactNode }) {
     const trimmed = key.trim();
     setKimiData({ key: trimmed, isCustom: true });
     saveSettings({ customKimiKey: trimmed });
+  }, []);
+
+  const setKimiPlatform = useCallback((platform: "international" | "china") => {
+    setKimiPlatformState(platform);
+    saveSettings({ kimiPlatform: platform });
   }, []);
 
   const clearCustomKimiKey = useCallback(() => {
@@ -191,6 +202,8 @@ export function ApiSettingsProvider({ children }: { children: ReactNode }) {
     isUsingCustomKimiKey: kimiData.isCustom,
     setCustomKimiKey,
     clearCustomKimiKey,
+    kimiPlatform,
+    setKimiPlatform,
     minimaxKey: minimaxData.key,
     isUsingCustomMinimaxKey: minimaxData.isCustom,
     setCustomMinimaxKey,
